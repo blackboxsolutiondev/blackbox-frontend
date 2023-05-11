@@ -141,9 +141,9 @@ export const DashboardComponent = props => {
     }))
 
     useEffect(() => {
-        fetchAccessCodesFirstPage()
         if (props.hasAdminPrivileges) {
             fetchAdminProjectsFirstPage()
+            fetchAccessCodesFirstPage()
         } else {
             fetchThisUserProjectsFirstPage()
         }

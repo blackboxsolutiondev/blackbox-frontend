@@ -26,8 +26,16 @@ import { SearchableTable } from '../../../components/common/SearchableTable'
 export const FAQSections = [
     {
         title: 'Account',
-        id: 'account'
-    }
+        id: 'Account'
+    },
+    {
+        title: 'Project',
+        id: 'Project'
+    },
+    {
+        title: 'Admin Console',
+        id: 'Admin Console'
+    },
 ]
 
 const FAQsSortFilters = [

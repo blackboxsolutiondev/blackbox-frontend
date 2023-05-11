@@ -105,6 +105,7 @@ const Root = styled.div`
         justify-content: space-around;
         align-items: center;
         background-color: ${p => p.theme.tintTranslucent};
+        border-radius: 50%;
     }
 
     & .notification-icon {

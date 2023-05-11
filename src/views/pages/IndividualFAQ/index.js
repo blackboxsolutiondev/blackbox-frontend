@@ -37,7 +37,7 @@ export const IndividualFAQComponent = props => {
                 {!props.loadingFAQ && props.faq ?
                     <Container className={`float-container ${props.isMobile && 'mobile'}`}>
                         <h3>{props.faq.title}</h3>
-                        <p>{props.faq.answer}</p>
+                        <p className='answer'>{props.faq.answer}</p>
                     </Container>
                     : <Loading />
                 }
@@ -58,6 +58,10 @@ const Container = styled.div`
 
     & h3 {
         margin-bottom: 30px;
+    }
+
+    & .answer {
+        white-space: pre-line;
     }
 
 `

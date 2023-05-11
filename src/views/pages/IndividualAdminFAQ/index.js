@@ -204,7 +204,7 @@ export const IndividualAdminFAQComponent = props => {
                                 <label>Section</label>
                                 <p>{props.faq.section}</p>
                                 <label>Answer</label>
-                                <p>{props.faq.answer}</p>
+                                <p className='answer'>{props.faq.answer}</p>
                             </div>
                         </div>
                         : <Loading />
@@ -303,6 +303,10 @@ const Container = styled.div`
         display: flex;
         justify-content: flex-end;
         align-items: center;
+    }
+
+    & .answer {
+        white-space: pre-line;
     }
 `
 const mapStateToProps = state => ({
