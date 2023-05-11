@@ -58,6 +58,7 @@ export const CreateProjectFormComponent = props => {
             projectType: projectType || 's',
             logoImages: [],
             logoImageURLs: [],
+            creatorPhoneNumber: '',
             email: '',
             domainProviderURL: '',
             domainProviderUsername: '',
@@ -108,6 +109,7 @@ export const CreateProjectFormComponent = props => {
         creatorName: false,
         projectName: false,
         logoImages: false,
+        creatorPhoneNumber: false,
         email: false,
         domainProviderURL: false,
         domainProviderUsername: false,
@@ -172,6 +174,7 @@ export const CreateProjectFormComponent = props => {
             projectType: 's',
             logoImages: [],
             logoImageURLs: [],
+            creatorPhoneNumber: '908-334-2404',
             email: 'liammail100@gmail.com',
             domainProviderURL: 'test',
             domainProviderUsername: 'test',
@@ -273,7 +276,7 @@ export const CreateProjectFormComponent = props => {
 
     useEffect(() => {
         if (!Object.keys(modified).length) return
-        setGeneralModified(modified.creatorName || modified.logoImageURLs || isEditMode && formData.logoImages.length || modified.domainProviderURL || modified.domainProviderUsername || modified.domainProviderPassword)
+        setGeneralModified(modified.creatorName || modified.logoImageURLs || isEditMode && formData.logoImages.length || modified.creatorPhoneNumber || modified.domainProviderURL || modified.domainProviderUsername || modified.domainProviderPassword)
         setLandingModified(modified.heroTitle || modified.heroMessage)
         setThemeModified(modified.themes || modified.defaultTheme || modified.selectedTintColors || modified.defaultTintColor || modified.customTintColor || modified.useCustomTintColor)
 
@@ -361,6 +364,7 @@ export const CreateProjectFormComponent = props => {
                 const nameCompleted = !!formData.creatorName
                 const projectNameCompleted = !!formData.projectName
                 const logoImagesCompleted = formData.logoImages.length > 0 || formData.logoImageURLs.length > 0
+                const phoneNumberCompleted = !!formData.creatorPhoneNumber
                 const emailCompleted = !!formData.email
                 const domainProviderURLCompleted = !!formData.domainProviderURL
                 const domainProviderUsernameCompleted = !!formData.domainProviderUsername
@@ -370,12 +374,13 @@ export const CreateProjectFormComponent = props => {
                     name: !nameCompleted,
                     projectName: !projectNameCompleted,
                     logoImages: !logoImagesCompleted,
+                    creatorPhoneNumber: !phoneNumberCompleted,
                     email: !emailCompleted,
                     domainProviderURL: !domainProviderURLCompleted,
                     domainProviderUsername: !domainProviderUsernameCompleted,
                     domainProviderPassword: !domainProviderPasswordCompleted
                 }))
-                if (nameCompleted && projectNameCompleted && logoImagesCompleted && emailCompleted && domainProviderURLCompleted && domainProviderUsernameCompleted && domainProviderPasswordCompleted) {
+                if (nameCompleted && projectNameCompleted && logoImagesCompleted && phoneNumberCompleted && emailCompleted && domainProviderURLCompleted && domainProviderUsernameCompleted && domainProviderPasswordCompleted) {
                     setGeneralCompleted(true)
                     navigateToStep(navigateToStepID, {general: true})
                 } else {
@@ -840,6 +845,7 @@ export const CreateProjectFormComponent = props => {
             case 'projectType':
             case 'logoImages':
             case 'email':
+            case 'creatorPhoneNumber':
                 setSelectedStepID('general')
                 break
             case 'heroTitle':
@@ -992,6 +998,16 @@ export const CreateProjectFormComponent = props => {
                             modified={isEditMode && (formData.logoImages.length || modified.logoImageURLs)}
                             hasError={errors.logoImages}
                             locked={isEditMode && (props.project ? props.project.editingLocked : true)}
+                        />
+                        <InputWithMessage
+                            label='Your Personal Phone Number'
+                            inputType='text'
+                            text={formData.creatorPhoneNumber}
+                            onChangeText={onChangeFormValue}
+                            fieldName='creatorPhoneNumber'
+                            message='This is the phone number that will be used to create your development accounts. It will not appear on the public website.'
+                            hasError={errors.creatorPhoneNumber}
+                            modified={isEditMode && modified.creatorPhoneNumber}
                         />
                         <InputWithMessage
                             label='Your Email'
@@ -1361,6 +1377,17 @@ export const CreateProjectFormComponent = props => {
                                     size='s'
                                     onClick={() => onClickEditField('logoImages')}
                                     className='edit-icon'
+                                />
+                            </div>
+                            <div className='label-with-message-container'>
+                                <div className='label-container'>
+                                    <label>Your Personal Phone Number</label>
+                                    <p className='review-item'>{formData.creatorPhoneNumber}</p>
+                                </div>
+                                <IconButton
+                                    icon='bi-pencil'
+                                    size='s'
+                                    onClick={() => onClickEditField('creatorPhoneNumber')}
                                 />
                             </div>
                             <div className='label-with-message-container'>

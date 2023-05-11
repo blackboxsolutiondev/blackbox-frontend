@@ -6,6 +6,7 @@ export const getFormData = initialUnmappedFormData => ({
     logoImages: [],
     logoImageURLs: initialUnmappedFormData.logoImageURLs,
     email: initialUnmappedFormData.creator.email,
+    creatorPhoneNumber: initialUnmappedFormData.creatorPhoneNumber,
     domainProviderURL: initialUnmappedFormData.domainProviderURL,
     domainProviderUsername: initialUnmappedFormData.domainProviderUsername,
     domainProviderPassword: initialUnmappedFormData.domainProviderPassword,
@@ -65,8 +66,8 @@ export const getFormDataModified = (currentFormData, initialUnmappedFormData) =>
 
     return {
         // general
-        creatorName: initFormData.creatorName !== currentFormData.creatorName,
         logoImageURLs: initFormData.logoImageURLs !== currentFormData.logoImageURLs,
+        creatorPhoneNumber: initFormData.creatorPhoneNumber !== currentFormData.creatorPhoneNumber,
         domainProviderURL: initFormData.domainProviderURL !== currentFormData.domainProviderURL,
         domainProviderUsername: initFormData.domainProviderUsername !== currentFormData.domainProviderUsername,
         domainProviderPassword: initFormData.domainProviderPassword !== currentFormData.domainProviderPassword,
