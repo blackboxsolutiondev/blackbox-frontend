@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import {v4 as uuid} from 'uuid'
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 
+import { getHasAdminPrivileges } from '../user'
 import { uploadProjectLogoImages, uploadProjectPagesImages } from './utils'
 import {
     getAdminProjects,
@@ -21,12 +22,20 @@ export const fetchProject = (
     projectID,
     onSuccess = () => {},
     onFailure = () => {}
-) => async (dispatch) => {
+) => async (dispatch, getState) => {
     dispatch(ProjectActions.setProjectNotFound(false))
     dispatch(ProjectActions.setLoadingProject(true))
 
+    const state = getState()
+    const mongoUser = getMongoUser(state)
+    const hasAdminPrivileges = getHasAdminPrivileges(state)
+
     try {
         const res = await api.get(`/projects/${projectID}`)
+
+        if (res.data.creator._id !== mongoUser._id && !hasAdminPrivileges) {
+            throw Error('You do no have access to this Project.')
+        }
 
         dispatch(ProjectActions.setProject(res.data))
         onSuccess()

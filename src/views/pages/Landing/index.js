@@ -5,7 +5,7 @@ import { bindActionCreators } from '@reduxjs/toolkit'
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 
-import { getIsMobile, getIsSemiMobile, Themes } from '../../../redux/theme'
+import { getIsMobile, getIsSemiMobile } from '../../../redux/theme'
 import { setThemeColor, setTintColor } from '../../../redux/theme'
 import { PageContainer } from '../../components/common/PageContainer'
 import { LandingHeader } from '../../components/headers/LandingHeader'
@@ -14,7 +14,7 @@ import { Button } from '../../components/common/Button'
 const Config = {
     heroTitle: 'Custom webapps done right',
     heroMessage: "We'll convert your webapp idea into a professional webapp. Just fill out our form and tell us about your webapp to get started.",
-    heroImageURL: 'https://firebasestorage.googleapis.com/v0/b/template-project-7b481.appspot.com/o/landing%2Fadmin_bug_reports.png?alt=media&token=706ccd87-b9b6-4225-adf8-c07f45cf97bd',
+    heroImageURL: 'https://firebasestorage.googleapis.com/v0/b/blackbox-solution.appspot.com/o/landing%2Fadmin_console_bug_reports.png?alt=media&token=78fb5781-ab6f-4f4c-b872-fb35b225a3b1',
     whyChooseUs: [
         {
             id: 0,
@@ -306,7 +306,7 @@ const Container = styled.div`
     }
     & .why-choose-us-image {
         height: 550px;
-        border: 5px solid ${p => Themes[1].bc};
+        border: 5px solid ${p => p.theme.bc};
         border-radius: 20px;
     }
     &.semi-mobile .why-choose-us-image {

@@ -137,7 +137,7 @@ export const ProjectRevisionsComponent = props => {
                             : <div className='content-container'>
                                 <div className='subheader-container'>
                                     <label>Revision Notes</label>
-                                    <IconButton icon='bi-pencil' size='s' color='white' onClick={onClickEdit} />
+                                    <IconButton icon='bi-pencil' size='s' onClick={onClickEdit} />
                                 </div>
                                 <p className='revision-notes'>{props.project.revisionNotes}</p>
                             </div>
@@ -184,8 +184,10 @@ const Container = styled.div`
 
     & .subheader-container {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+    }
+    & .subheader-container label {
+        margin-right: 10px;
     }
 
     & .buttons-container {

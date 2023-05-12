@@ -43,15 +43,15 @@ export const AccessCodeComponent = props => {
                             <h3 className='line-clamp-1'>{props.accessCode.title}</h3>
                         </div>
                         <div className='item-row' >
-                            <label>Created: </label>
-                            <p>{moment(props.accessCode.createdAt).format('LLL')}</p>
-                        </div>
-                        <div className='item-row' style={{marginBottom: 40}} >
                             <label>Status: </label>
                             {props.accessCode.claimed ?
                                 <PillLabel title='Claimed' color='green' size='s' />
                                 : <PillLabel title='Unclaimed' color='red' size='s' />
                             }
+                        </div>
+                        <div className='item-row' style={{marginBottom: 40}} >
+                            <label>Created: </label>
+                            <p>{moment(props.accessCode.createdAt).format('LLL')}</p>
                         </div>
                         <div className='item-row' style={{marginBottom: 0}}>
                             <label>Code: </label>

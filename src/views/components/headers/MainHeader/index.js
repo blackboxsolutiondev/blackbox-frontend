@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {useNavigate, Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { getIsMobile } from '../../../../redux/theme'
+import { getIsMobile, getIsSemiMobile } from '../../../../redux/theme'
 import { getHasAdminPrivileges } from '../../../../redux/user'
 import { MainMenu } from '../MainMenu'
 import { LinksMenu } from '../LinksMenu'
@@ -95,7 +95,7 @@ export const MainHeaderComponent = props => {
                 }
             </div>
             <div className='d-flex jc-flex-end ai-center'>
-                {props.isMobile ?
+                {props.isSemiMobile ?
                     <LinksMenu
                         style={{marginRight: 15}}
                         menuHidden={linksMenuHidden}
@@ -129,6 +129,7 @@ export const MainHeaderComponent = props => {
 
 const mapStateToProps = state => ({
     isMobile: getIsMobile(state),
+    isSemiMobile: getIsSemiMobile(state),
     hasAdminPrivileges: getHasAdminPrivileges(state)
 })
 

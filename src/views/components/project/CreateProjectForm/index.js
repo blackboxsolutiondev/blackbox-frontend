@@ -221,13 +221,6 @@ export const CreateProjectFormComponent = props => {
         })
     }, [])
 
-    // test
-    useEffect(() => {
-        console.log(JSON.stringify(
-            {projectType, formDataProjectType: formData.projectType}
-        , null, 4))
-    }, [formData])
-
     const selectedStep = progressSteps.find(({id}) => id === selectedStepID)
     const selectedProjectType = ProjectTypes.find(({id}) => id === formData.projectType)
 
@@ -554,7 +547,7 @@ export const CreateProjectFormComponent = props => {
                 }))
                 break
             case 'lightThemeDefault':
-                props.setThemeColor(1)
+                props.setThemeColor(0)
                 setFormData(curr => ({
                     ...curr,
                     lightThemeDefault: true,
@@ -564,7 +557,7 @@ export const CreateProjectFormComponent = props => {
                 }))
                 break
             case 'darkThemeDefault':
-                props.setThemeColor(2)
+                props.setThemeColor(1)
                 setFormData(curr => ({
                     ...curr,
                     lightThemeDefault: false,
@@ -574,7 +567,7 @@ export const CreateProjectFormComponent = props => {
                 }))
                 break
             case 'blueThemeDefault':
-                props.setThemeColor(0)
+                props.setThemeColor(2)
                 setFormData(curr => ({
                     ...curr,
                     lightThemeDefault: false,

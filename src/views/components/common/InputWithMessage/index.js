@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import { Switch } from '../Switch'
@@ -30,15 +30,6 @@ export const InputWithMessage = props => {
 
         ...rest
     } = props
-
-    // test
-    useEffect(() => {
-        if (fieldName === 'projectType') {
-            console.log(JSON.stringify(
-                {selectValue}
-            , null, 4))
-        }
-    }, [])
 
     return (
         <Root {...rest}>
