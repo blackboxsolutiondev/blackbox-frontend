@@ -73,7 +73,7 @@ export const MainMenuComponent = props => {
             menuElement={
                 <MenuContainer className='d-flex fd-column jc-flex-start ai-stretch'>
                     <div
-                        className='d-flex fd-column jc-flex-start ai-center profile-container oh-dark'
+                        className='profile-container'
                         onClick={onClickProfileContainer}
                     >
                         <UserIcon
@@ -176,7 +176,14 @@ const MenuContainer = styled.div`
     }
 
     & .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         padding: 15px 10px;
+        cursor: pointer;
+    }
+    & .profile-container:hover {
+        background-color: ${p => p.theme.tintTranslucent};
     }
 
     & .links-container {

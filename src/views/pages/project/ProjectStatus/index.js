@@ -5,6 +5,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import moment from 'moment'
 
+import { ModalTypes } from '../../../../containers/ModalProvider'
+import { addModal } from '../../../../redux/modal'
 import { getIsMobile } from '../../../../redux/theme'
 import {
     getProject,
@@ -12,6 +14,7 @@ import {
     getProjectNotFound,
 
     fetchProject,
+    deleteProject,
 
     ProjectStatuses
 } from '../../../../redux/project'
@@ -21,6 +24,7 @@ import { MainHeader } from '../../../components/headers/MainHeader'
 import { ProjectHeader } from '../../../components/project/ProjectHeader'
 import { Loading } from '../../../components/common/Loading'
 import { PillLabel } from '../../../components/common/PillLabel'
+import { OptionsMenu } from '../../../components/menus/OptionsMenu'
 import { ErrorElement } from '../../ErrorElement'
 
 export const ProjectStatusComponent = props => {
@@ -28,12 +32,36 @@ export const ProjectStatusComponent = props => {
         
     } = props
     const {projectID} = useParams()
+    const navigate = useNavigate()
+    const [optionsMenuHidden, setOptionsMenuHidden] = useState(true)
 
     useEffect(() => {
         props.fetchProject(projectID)
     }, [])
 
-    // Direct Functions
+    // Direct
+
+    const onClickDeleteProject = () => {
+        props.addModal(ModalTypes.CONFIRM, {
+            title: 'Delete Project',
+            message: 'Are you sure you want to delete this project?',
+            confirmButtonTitle: 'Delete',
+            isDanger: true,
+            onConfirm: (onSuccess, onFailure) => props.deleteProject(
+                projectID,
+                () => {
+                    navigate('/dashboard')
+                    onSuccess()
+                },
+                onFailure
+            )
+        })
+    }
+    // Function Dependent Variables
+
+    const menuOptions = [
+        {title: 'Delete', onClick: onClickDeleteProject, icon: 'bi-trash', isDanger: true}
+    ]
 
     return (props.projectNotFound ?
         <ErrorElement />
@@ -48,6 +76,11 @@ export const ProjectStatusComponent = props => {
                     <Container className={`float-container ${props.isMobile && 'mobile'}`}>
                         <div className='header-container'>
                             <h3 className='line-clamp-1'>{props.project.projectName}</h3>
+                            <OptionsMenu
+                                menuHidden={optionsMenuHidden}
+                                setMenuHidden={setOptionsMenuHidden}
+                                options={menuOptions}
+                            />
                         </div>
                         <div className='item-row'>
                             <label>Date Created: </label>
@@ -137,6 +170,8 @@ const Container = styled.div`
         justify-content: space-between;
         align-items: flex-start;
         margin-bottom: 40px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid ${p => p.theme.bc};
     }
 
     & .item-row {
@@ -157,7 +192,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchProject
+    fetchProject,
+    deleteProject,
+    addModal
 }, dispatch)
 
 export const ProjectStatus = connect(mapStateToProps, mapDispatchToProps)(ProjectStatusComponent)

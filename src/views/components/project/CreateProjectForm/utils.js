@@ -86,10 +86,10 @@ export const getFormDataModified = (currentFormData, initialUnmappedFormData) =>
 
         // features
         pagesText: currentFormData.pagesText.map( (text, i) => (
-            initFormData.pagesText[i] ? initFormData.pagesText[i] !== text : true
+            initFormData.pagesText[i] !== text && (initFormData.pagesText[i].length > 0 || text.length > 0)
         )),
         pagesImageURLs: currentFormData.pagesImageURLs.map( (pageImagesURLs, i) => (
-            initFormData.pagesImageURLs[i] ? initFormData.pagesImageURLs[i] !== pageImagesURLs : true
+            initFormData.pagesImageURLs[i] ? initFormData.pagesImageURLs[i] !== pageImagesURLs && (initFormData.pagesImageURLs[i].length > 0 || pageImagesURLs.length > 0) : true
         )),
 
         // subscriptions

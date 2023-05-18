@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux'
 import styled from 'styled-components'
 
 
+import { getIsLoggedIn, getUser } from '../../../../redux/user'
 import { getProject } from '../../../../redux/project'
 import { fetchIsValidAccessCode, getIsValidAccessCode } from '../../../../redux/project'
 import {getFormData, getFormDataModified} from './utils'
@@ -53,13 +54,13 @@ export const CreateProjectFormComponent = props => {
         getFormData(initFormData)
         : {
             // general
-            creatorName: '',
+            creatorName: props.isLoggedIn ? props.user.displayName : '',
             projectName: '',
             projectType: projectType || 's',
             logoImages: [],
             logoImageURLs: [],
             creatorPhoneNumber: '',
-            email: '',
+            email: props.isLoggedIn ? props.user.email : '',
             domainProviderURL: '',
             domainProviderUsername: '',
             domainProviderPassword: '',
@@ -169,13 +170,13 @@ export const CreateProjectFormComponent = props => {
     useEffect(() => {
         !isEditMode && setFormData({
             // general
-            creatorName: 'test',
+            creatorName: props.isLoggedIn ? props.user.displayName : '',
             projectName: 'Test',
             projectType: 's',
             logoImages: [],
             logoImageURLs: [],
             creatorPhoneNumber: '908-334-2404',
-            email: 'liammail100@gmail.com',
+            email: props.isLoggedIn ? props.user.email : '',
             domainProviderURL: 'test',
             domainProviderUsername: 'test',
             domainProviderPassword: 'test',
@@ -958,7 +959,7 @@ export const CreateProjectFormComponent = props => {
                             message=' '
                             hasError={errors.creatorName}
                             modified={isEditMode && modified.creatorName}
-                            locked={isEditMode}
+                            locked={isEditMode || props.isLoggedIn}
                         />
                         <InputWithMessage
                             label='Project Name'
@@ -1011,7 +1012,7 @@ export const CreateProjectFormComponent = props => {
                             message='This is the email that will be used to create your Blackbox Solution account.'
                             hasError={errors.email}
                             modified={isEditMode && modified.email}
-                            locked={isEditMode}
+                            locked={isEditMode || props.isLoggedIn}
                         />
                         <InputWithMessage
                             label='Domain Provider URL'
@@ -1864,6 +1865,8 @@ const Container = styled.div`
 
     & .review-title {
         margin-bottom: 20px;
+        border-bottom: 1px solid ${p => p.theme.bc};
+        padding-bottom: 5px; 
     }
 
     & .terms-container {
@@ -1904,6 +1907,8 @@ const Container = styled.div`
 
 const mapStateToProps = state => ({
     isValidAccessCode: getIsValidAccessCode(state),
+    isLoggedIn: getIsLoggedIn(state),
+    user: getUser(state),
     project: getProject(state),
 })
 

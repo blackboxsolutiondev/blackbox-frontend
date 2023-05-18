@@ -143,7 +143,6 @@ const Root = styled.div`
         align-items: center;
         padding: 15px 15px;
         border-bottom: 1px solid ${p => p.theme.bc};
-        background-color: ${p => p.theme.tintTranslucent};
     }
 
     & .selected-title {

@@ -51,6 +51,7 @@ const Config = {
                 {title: 'Support Page', included: true},
                 {title: 'Admin Console', included: true},
                 {title: 'Notifications Page', included: true},
+                {title: 'Subscription Portal', included: true},
             ],
             id: 's'
         },
@@ -66,6 +67,7 @@ const Config = {
                 {title: 'Support Page', included: true},
                 {title: 'Admin Console', included: true},
                 {title: 'Notifications Page', included: true},
+                {title: 'Subscription Portal', included: true},
             ],
             id: 'm'
         },
@@ -81,6 +83,7 @@ const Config = {
                 {title: 'Support Page', included: true},
                 {title: 'Admin Console', included: true},
                 {title: 'Notifications Page', included: true},
+                {title: 'Subscription Portal', included: true},
             ],
             id: 'l'
         }

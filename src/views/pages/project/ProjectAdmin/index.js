@@ -16,6 +16,7 @@ import {
     fetchProject,
     patchProjects,
     deleteProjects,
+    sendProjectInvoice,
 
     ProjectStatuses
 } from '../../../../redux/project'
@@ -26,7 +27,24 @@ import { ProjectHeader } from '../../../components/project/ProjectHeader'
 import { Loading } from '../../../components/common/Loading'
 import { OptionsMenu } from '../../../components/menus/OptionsMenu'
 import { PillLabel } from '../../../components/common/PillLabel'
+import { InputWithMessage } from '../../../components/common/InputWithMessage'
+import { Button } from '../../../components/common/Button'
 import { ErrorElement } from '../../ErrorElement'
+
+const ProjectTypeOptions = [
+    {
+        title: 'Small Webapp - 250',
+        id: 's',
+    },
+    {
+        title: 'Medium Webapp - 500',
+        id: 'm',
+    },
+    {
+        title: 'Large Webapp - 1500',
+        id: 'l',
+    },
+]
 
 export const ProjectAdminComponent = props => {
     const {
@@ -35,15 +53,21 @@ export const ProjectAdminComponent = props => {
     const {projectID} = useParams()
     const navigate = useNavigate()
     const [optionsMenuHidden, setOptionsMenuHidden] = useState(true)
+    const [invoiceType, setInvoiceType] = useState('s')
 
     useEffect(() => {
         props.fetchProject(projectID)
     }, [])
 
+    useEffect(() => {
+        if (!props.project) return
+        setInvoiceType(props.project.projectType)
+    }, [props.project])
+
     // Utils
 
-    const fetchCurrentProject = () => {
-        props.fetchProject(projectID)
+    const fetchCurrentProject = (onSuccess = () => {}, onFailure = () => {}) => {
+        props.fetchProject(projectID, onSuccess, onFailure)
     }
 
     const fetchCurrentProjectAndCloseMenu = () => {
@@ -68,12 +92,6 @@ export const ProjectAdminComponent = props => {
     const onClickEditRefundIssued = () => {
         props.patchProjects([projectID], {
             refundIssued: !props.project.refundIssued
-        }, fetchCurrentProjectAndCloseMenu, () => {})
-    }
-
-    const onClickEditInvoiceSent = () => {
-        props.patchProjects([projectID], {
-            invoiceSent: !props.project.invoiceSent
         }, fetchCurrentProjectAndCloseMenu, () => {})
     }
 
@@ -112,6 +130,28 @@ export const ProjectAdminComponent = props => {
         })
     }
 
+    const onChangeInvoiceType = e => {
+        setInvoiceType(e.target.value)
+    }
+
+    const onClickSendInvoice = () => {
+        props.addModal(ModalTypes.CONFIRM, {
+            title: 'Send Invoice',
+            message: `Are you sure you want to send an invoice for \n\n${ProjectTypeOptions.find( ({id}) => id === invoiceType).title}?`,
+            confirmButtonTitle: 'Send',
+            onConfirm: (onSuccess, onFailure) => props.sendProjectInvoice(
+                invoiceType,
+                projectID,
+                props.project.creator.email,
+                props.project.creator._id,
+                () => {
+                    fetchCurrentProject(onSuccess, onFailure)
+                },
+                onFailure
+            )
+        })
+    }
+
     // Function Dependent Variables
 
     const menuOptions = [
@@ -129,21 +169,6 @@ export const ProjectAdminComponent = props => {
             ,
             icon: 'bi-cash-stack',
             onClick: onClickEditReceivedPayment
-        },
-        {
-            title: !props.loadingProject && props.project ?
-                props.project.invoiceSent ?
-                    'Unsend Invoice'
-                    : 'Send Invoice'
-                : 'Send Invoice'
-            ,
-            icon: !props.loadingProject && props.project ?
-                props.project.invoiceSent ?
-                    'bi-newspaper'
-                    : 'bi-newspaper'
-                : 'bi-newspaper'
-            ,
-            onClick: onClickEditInvoiceSent
         },
         {
             title: !props.loadingProject && props.project ?
@@ -248,13 +273,6 @@ export const ProjectAdminComponent = props => {
                             }
                         </div>
                         <div className='item-row' >
-                            <label>Invoice Status: </label>
-                            {props.project.invoiceSent ?
-                                <PillLabel title='Sent' color='green' size='s' />
-                                : <PillLabel title='Not sent' color='blue' size='s' />
-                            }
-                        </div>
-                        <div className='item-row' >
                             <label>Refund Status: </label>
                             {props.project.refundIssued ?
                                 <PillLabel title='Issued' color='green' size='s' />
@@ -275,13 +293,55 @@ export const ProjectAdminComponent = props => {
                                 : <PillLabel title='Allowed' color='green' size='s' />
                             }
                         </div>
-                        <div className='item-row' style={{marginBottom: 0}}>
+                        <div className='item-row' style={{marginBottom: 40}}>
                             <label>Archived: </label>
                             {props.project.archived ?
                                 <PillLabel title='True' color='green' size='s' />
                                 : <PillLabel title='False' color='red' size='s' />
                             }
                         </div>
+                        <h3 className='section-title'>Invoice</h3>
+                        <div className='item-row' >
+                            <label>Status: </label>
+                            {props.project.invoiceSent ?
+                                <PillLabel title='Sent' color='green' size='s' />
+                                : <PillLabel title='Not sent' color='blue' size='s' />
+                            }
+                        </div>
+                        {props.project.invoiceSent ?
+                            <div className='d-flex fd-column ai-flex-start'>
+                                <div className='item-row' >
+                                    <label>Type: </label>
+                                    {props.project.invoiceSent ?
+                                        <p>{ProjectTypeOptions.find( ({id}) => id === props.project.invoiceType).title}</p>
+                                        : <PillLabel title='Not sent' color='blue' size='s' />
+                                    }
+                                </div>
+                                <div className='item-row' >
+                                    <label>ID: </label>
+                                    {props.project.invoiceSent ?
+                                        <p>{props.project.invoiceID}</p>
+                                        : <PillLabel title='Not sent' color='blue' size='s' />
+                                    }
+                                </div>
+                            </div>
+                            : null
+                        }
+                        <InputWithMessage
+                            label='Invoice Type'
+                            inputType='select'
+                            selectValue={invoiceType}
+                            selectValues={ProjectTypeOptions}
+                            onChangeSelectValue={onChangeInvoiceType}
+                            message=' '
+                        />
+                        <Button
+                            title='Send Invoice'
+                            priority={2}
+                            type='solid'
+                            onClick={onClickSendInvoice}
+                            className='as-flex-start'
+                        />
                     </Container>
                     : <Loading />
                 }
@@ -295,6 +355,8 @@ const Container = styled.div`
     flex-direction: column;
     align-items: stretch;
     padding: 30px;
+    min-height: 730px;
+    box-sizing: border-box;
 
     &.mobile {
         padding: 20px;
@@ -305,6 +367,8 @@ const Container = styled.div`
         justify-content: space-between;
         align-items: flex-start;
         margin-bottom: 40px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid ${p => p.theme.bc};
     }
 
     & .item-row {
@@ -314,6 +378,12 @@ const Container = styled.div`
     }
     & .item-row label {
         margin-right: 10px;
+    }
+
+    & .section-title {
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid ${p => p.theme.bc};
     }
 `
 
@@ -328,6 +398,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     fetchProject,
     patchProjects,
     deleteProjects,
+    sendProjectInvoice,
     addModal
 }, dispatch)
 

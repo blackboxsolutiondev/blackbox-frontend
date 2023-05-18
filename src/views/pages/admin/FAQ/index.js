@@ -51,11 +51,15 @@ export const FAQComponent = props => {
     const [faqsPage, setFAQsPage] = useState(1)
     const [faqsSortFilter, setFAQsSortFilter] = useState(FAQsSortFilters[0].filter)
     const [accountPillActive, setAccountPillActive] = useState(false)
+    const [projectPillActive, setProjectPillActive] = useState(false)
+    const [adminConsolePillActive, setAdminConsolePillActive] = useState(false)
     const [searchText, setSearchText] = useState('')
     const [clearSelectedRows, setClearSelectedRows] = useState(false)
 
     const pills = [
-        {title: 'Account', id: 'account', active: accountPillActive}
+        {title: 'Account', id: 'Account', active: accountPillActive},
+        {title: 'Project', id: 'Project', active: projectPillActive},
+        {title: 'Admin Console', id: 'Admin Console', active: adminConsolePillActive}
     ]
 
     const faqsForCurrentPage = getPaginatedDataForCurrentPage(
@@ -65,7 +69,7 @@ export const FAQComponent = props => {
     )
     const tableHeaders = ['Title', 'Section']
     const tableRows = props.loadingFAQs ? []
-        : faqsForCurrentPage.map( ({_id, title, section, createdAt}) => ({
+        : faqsForCurrentPage.map( ({_id, title, section}) => ({
             id: _id,
             cells: [title, capitalizeWords(section)]
         }))
@@ -73,7 +77,7 @@ export const FAQComponent = props => {
     useEffect(() => {
         fetchFAQsForPage(1)
         setClearSelectedRows(curr => !curr)
-    }, [accountPillActive, faqsSortFilter])
+    }, [accountPillActive, projectPillActive, adminConsolePillActive, faqsSortFilter])
 
     // Utils
 
@@ -104,8 +108,26 @@ export const FAQComponent = props => {
 
     const onClickPill = pillID => {
         switch (pillID) {
-            case 'account':
+            case 'Account':
+                if (!accountPillActive) {
+                    setProjectPillActive(false)
+                    setAdminConsolePillActive(false)
+                }
                 setAccountPillActive(curr => !curr)
+                break
+            case 'Project':
+                if (!projectPillActive) {
+                    setAccountPillActive(false)
+                    setAdminConsolePillActive(false)
+                }
+                setProjectPillActive(curr => !curr)
+                break
+            case 'Admin Console':
+                if (!adminConsolePillActive) {
+                    setAccountPillActive(false)
+                    setProjectPillActive(false)
+                }
+                setAdminConsolePillActive(curr => !curr)
                 break
         }
     }

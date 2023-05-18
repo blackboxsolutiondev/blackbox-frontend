@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import moment from 'moment'
 
 import { addMessage } from '../../../../redux/communication'
 import { getIsMobile } from '../../../../redux/theme'

@@ -229,7 +229,8 @@ export const createUserAndPostProject = (
                 console.log('create fb user error')
                 console.log(errorMessage)
                 dispatch(addMessage(errorMessage, true))
-                throw (error)
+                onFailure()
+                return
             }
 
             try {
@@ -425,9 +426,16 @@ export const patchProject = (projectID, updatedFields, onSuccess, onFailure) => 
     }
 }
 
-export const deleteProject = (projectID, onSuccess, onFailure) => async (dispatch) => {
+export const deleteProject = (projectID, onSuccess, onFailure) => async (dispatch, getState) => {
+    const state = getState()
+    const mongoUser = getMongoUser(state)
+
+    const queryString = stringifyQuery({
+        userID: mongoUser._id
+    })
+
     try {
-        const res = await api.delete(`/project/${projectID}`)
+        const res = await api.delete(`/projects/${projectID}${queryString}`)
 
         dispatch(addMessage(res.data.message))
         onSuccess()
@@ -474,4 +482,37 @@ export const fetchAccessCode = accessCodeID => async (dispatch, getState) => {
     }
 
     dispatch(ProjectActions.setLoadingAccessCode(false))
+}
+
+export const sendProjectInvoice = (
+    projectType,
+    projectID,
+    userEmail,
+    userID,
+    onSuccess,
+    onFailure
+) => async (dispatch, getState) => {
+    const state = getState()
+    const mongoUser = getMongoUser(state)
+
+    try {
+        const res = await api.patch(
+            '/admin/projects/sendinvoice',
+            {
+                projectType,
+                projectID,
+                userEmail,
+                userID
+            },
+            getAdminRequestConfig(mongoUser)
+        )
+
+        dispatch(addMessage(res.data.message))
+        onSuccess()
+    } catch (error) {
+        const errorMessage = error.response ? error.response.data.message : error.message
+        console.log(errorMessage)
+        dispatch(addMessage(errorMessage, true))
+        onFailure()
+    }
 }

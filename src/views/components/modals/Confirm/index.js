@@ -121,6 +121,7 @@ const Root = styled.div`
 
     & .body-message {
         margin-bottom: 15px;
+        white-space: pre-line;
     }
 
     & .children-container {
