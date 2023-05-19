@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux'
 import styled from 'styled-components'
 
 
+import { capitalizeWords } from '../../../../utils/misc'
 import { getIsLoggedIn, getUser } from '../../../../redux/user'
 import { getProject } from '../../../../redux/project'
 import { fetchIsValidAccessCode, getIsValidAccessCode } from '../../../../redux/project'
@@ -24,6 +25,24 @@ const ProjectTypes = [
     {title: 'Small Webapp - 2 Custom Pages', price: 250, id: 's', pagesCount: 2},
     {title: 'Medium Webapp - 4 Custom Pages', price: 500, id: 'm', pagesCount: 4},
     {title: 'Large Webapp - 10 Custom Pages', price: 1500, id: 'l', pagesCount: 10}
+]
+
+const BorderRadii = [
+    {
+        id: 'borderRadiusSquare',
+        radius: 0,
+        value: 'square',
+    },
+    {
+        id: 'borderRadiusRounded',
+        radius: 10,
+        value: 'rounded',
+    },
+    {
+        id: 'borderRadiusPill',
+        radius: 20,
+        value: 'pill',
+    }
 ]
 
 export const CreateProjectFormComponent = props => {
@@ -86,6 +105,7 @@ export const CreateProjectFormComponent = props => {
             greenTintDefault: false,
             customTintColor: null,
             useCustomTintColor: false,
+            borderRadius: 'rounded',
 
             // features
             pagesText: [],
@@ -202,6 +222,7 @@ export const CreateProjectFormComponent = props => {
             greenTintDefault: false,
             customTintColor: null,
             useCustomTintColor: false,
+            borderRadius: 'rounded',
     
             // features
             pagesText: ['test', 'test'],
@@ -272,7 +293,7 @@ export const CreateProjectFormComponent = props => {
         if (!Object.keys(modified).length) return
         setGeneralModified(modified.creatorName || modified.logoImageURLs || isEditMode && formData.logoImages.length || modified.creatorPhoneNumber || modified.domainProviderURL || modified.domainProviderUsername || modified.domainProviderPassword)
         setLandingModified(modified.heroTitle || modified.heroMessage)
-        setThemeModified(modified.themes || modified.defaultTheme || modified.selectedTintColors || modified.defaultTintColor || modified.customTintColor || modified.useCustomTintColor)
+        setThemeModified(modified.themes || modified.defaultTheme || modified.selectedTintColors || modified.defaultTintColor || modified.customTintColor || modified.useCustomTintColor || modified.borderRadius) 
 
         let pagesTextModified = false
         let pagesImageURLsModified = false
@@ -645,6 +666,24 @@ export const CreateProjectFormComponent = props => {
                     greenTintSelected: true,
                 }))
                 break
+            case 'borderRadiusSquare':
+                setFormData(curr => ({
+                    ...curr,
+                    borderRadius: 'square'
+                }))
+                break
+            case 'borderRadiusRounded':
+                setFormData(curr => ({
+                    ...curr,
+                    borderRadius: 'rounded'
+                }))
+                break
+            case 'borderRadiusPill':
+                setFormData(curr => ({
+                    ...curr,
+                    borderRadius: 'pill'
+                }))
+                break
             case 'hasSubscriptions':
                 if (formData.hasSubscriptions) {
                     setSubscriptionTiersCount(0)
@@ -852,6 +891,7 @@ export const CreateProjectFormComponent = props => {
             case 'tintColors':
             case 'defaultTintColor':
             case 'customTintColor':
+            case 'borderRadius':
                 setSelectedStepID('theme')
                 break
             case 'pagesText':
@@ -1206,6 +1246,20 @@ export const CreateProjectFormComponent = props => {
                                 locked={isEditMode && (props.project ? props.project.editingLocked : true)}
                             />
                         }
+                        <InputWithMessage
+                            label='Border Radius'
+                            inputType='checklist'
+                            checklistOptions={BorderRadii.map(({id, radius, value}) => ({
+                                title: capitalizeWords(value),
+                                selected: formData.borderRadius === value,
+                                id,
+                                leftChild: <div className='border-radius-option' style={{borderRadius: radius}} />
+                            }))}
+                            onClickCheckbox={onClickCheckbox}
+                            message='Select one.'
+                            modified={isEditMode && modified.borderRadius}
+                            locked={isEditMode && (props.project ? props.project.editingLocked : true)}
+                        />
                     </div>
                 : selectedStepID === 'features' ?
                     <div className='inner-form-container'>
@@ -1563,6 +1617,17 @@ export const CreateProjectFormComponent = props => {
                                     />
                                 </div>
                             }
+                            <div className='label-with-message-container'>
+                                <div className='label-container'>
+                                    <label>Border Radius</label>
+                                    <p className='review-item'>{capitalizeWords(formData.borderRadius)}</p>
+                                </div>
+                                <IconButton
+                                    icon='bi-pencil'
+                                    size='s'
+                                    onClick={() => onClickEditField('borderRadius')}
+                                />
+                            </div>
                         </div>
                         <h3 className='review-title'>Features</h3>
                         <div className='review-section'>
@@ -1848,6 +1913,13 @@ const Container = styled.div`
         height: 15px;
         width: 60px;
         border-radius: 7px;
+    }
+
+    & .border-radius-option {
+        height: 125px;
+        width: 125px;
+        border: 1px solid ${p => p.theme.bc};
+        background-color: ${p => p.theme.bgcInput};
     }
 
     & .review-section {

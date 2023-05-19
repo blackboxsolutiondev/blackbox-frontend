@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import moment from 'moment'
 
+import { addMessage } from '../../../../redux/communication'
 import { getIsMobile } from '../../../../redux/theme'
 import { addModal } from '../../../../redux/modal'
 import { ModalTypes } from '../../../../containers/ModalProvider'
@@ -12,11 +13,13 @@ import {
     getProject,
     getLoadingProject,
     getProjectNotFound,
+    getIsValidAccessCode,
 
     fetchProject,
     patchProjects,
     deleteProjects,
     sendProjectInvoice,
+    fetchIsValidAccessCode,
 
     ProjectStatuses
 } from '../../../../redux/project'
@@ -29,6 +32,7 @@ import { OptionsMenu } from '../../../components/menus/OptionsMenu'
 import { PillLabel } from '../../../components/common/PillLabel'
 import { InputWithMessage } from '../../../components/common/InputWithMessage'
 import { Button } from '../../../components/common/Button'
+import { ValidLabel } from '../../../components/common/ValidLabel'
 import { ErrorElement } from '../../ErrorElement'
 
 const ProjectTypeOptions = [
@@ -54,6 +58,8 @@ export const ProjectAdminComponent = props => {
     const navigate = useNavigate()
     const [optionsMenuHidden, setOptionsMenuHidden] = useState(true)
     const [invoiceType, setInvoiceType] = useState('s')
+    const [accessCode, setAccessCode] = useState('')
+    const [accessCodeError, setAccessCodeError] = useState(false)
 
     useEffect(() => {
         props.fetchProject(projectID)
@@ -63,6 +69,10 @@ export const ProjectAdminComponent = props => {
         if (!props.project) return
         setInvoiceType(props.project.projectType)
     }, [props.project])
+
+    useEffect(() => {
+        props.fetchIsValidAccessCode(accessCode)
+    }, [accessCode])
 
     // Utils
 
@@ -152,6 +162,22 @@ export const ProjectAdminComponent = props => {
         })
     }
 
+    const onChangeAccessCode = e => {
+        setAccessCodeError(false)
+        setAccessCode(e.target.value)
+    }
+
+    const onClickSubmitAccessCode = () => {
+        if (!props.isValidAccessCode) {
+            setAccessCodeError(true)
+            props.addMessage('Access code is invalid.', true)
+        } else {
+            props.patchProjects([projectID], {
+                accessCode
+            }, fetchCurrentProject, () => {})
+        }
+    }
+
     // Function Dependent Variables
 
     const menuOptions = [
@@ -233,7 +259,7 @@ export const ProjectAdminComponent = props => {
             />
             <BodyContainer>
                 {!props.loadingProject && props.project ?
-                    <Container className={`float-container ${props.isMobile && 'mobile'}`}>
+                    <Container className={`float-container ${props.isMobile && 'mobile'}`} style={{overflow: 'visible'}}>
                         <div className='header-container'>
                             <h3 className='line-clamp-1'>{props.project.projectName}</h3>
                             <OptionsMenu
@@ -277,6 +303,13 @@ export const ProjectAdminComponent = props => {
                             {props.project.refundIssued ?
                                 <PillLabel title='Issued' color='green' size='s' />
                                 : <PillLabel title='Not issued' color='blue' size='s' />
+                            }
+                        </div>
+                        <div className='item-row' >
+                            <label>Access Code Status: </label>
+                            {props.project.accessCode ?
+                                <PillLabel title='Submitted' color='green' size='s' />
+                                : <PillLabel title='Not submitted' color='blue' size='s' />
                             }
                         </div>
                         <div className='item-row' >
@@ -341,7 +374,42 @@ export const ProjectAdminComponent = props => {
                             type='solid'
                             onClick={onClickSendInvoice}
                             className='as-flex-start'
+                            style={{marginBottom: 40}}
                         />
+                        <h3 className='section-title'>Access Code</h3>
+                        {props.project.accessCode ?
+                            <div className='item-row' >
+                                <label>Access Code: </label>
+                                <p>{props.project.accessCode}</p>
+                            </div>
+                            : <InputWithMessage
+                                label='Access Code'
+                                inputType='text'
+                                text={accessCode}
+                                fieldName='accessCode'
+                                placeholder='Enter your access code'
+                                onChangeText={onChangeAccessCode}
+                                hasError={accessCodeError}
+                                rightChild={
+                                    <ValidLabel
+                                        isValid={props.isValidAccessCode}
+                                        validMessage='Access code is valid'
+                                        invalidMessage='Access code is invalid'
+                                        style={{marginLeft: 15}}
+                                    />
+                                }
+                            />
+                        }
+                        {props.project.accessCode ? 
+                            null
+                            : <Button
+                                title='Submit Access Code'
+                                priority={2}
+                                type='solid'
+                                onClick={onClickSubmitAccessCode}
+                                className='as-flex-start'
+                            />
+                        }
                     </Container>
                     : <Loading />
                 }
@@ -355,7 +423,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: stretch;
     padding: 30px;
-    min-height: 730px;
+    // min-height: 1025px;
     box-sizing: border-box;
 
     &.mobile {
@@ -392,6 +460,7 @@ const mapStateToProps = state => ({
     loadingProject: getLoadingProject(state),
     projectNotFound: getProjectNotFound(state),
     isMobile: getIsMobile(state),
+    isValidAccessCode: getIsValidAccessCode(state),
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -399,7 +468,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     patchProjects,
     deleteProjects,
     sendProjectInvoice,
-    addModal
+    fetchIsValidAccessCode,
+    addModal,
+    addMessage
 }, dispatch)
 
 export const ProjectAdmin = connect(mapStateToProps, mapDispatchToProps)(ProjectAdminComponent)

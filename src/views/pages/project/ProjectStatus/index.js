@@ -126,6 +126,13 @@ export const ProjectStatusComponent = props => {
                                 : <PillLabel title='Not issued' color='blue' size='s' />
                             }
                         </div>
+                        <div className='item-row' >
+                            <label>Access Code Status: </label>
+                            {props.project.accessCode ?
+                                <PillLabel title='Submitted' color='green' size='s' />
+                                : <PillLabel title='Not submitted' color='blue' size='s' />
+                            }
+                        </div>
                         <div className='item-row'>
                             <label>Editing: </label>
                             {props.project.editingLocked ?

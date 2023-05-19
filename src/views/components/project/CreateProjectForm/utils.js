@@ -32,6 +32,7 @@ export const getFormData = initialUnmappedFormData => ({
     greenTintDefault: initialUnmappedFormData.defaultTintColor == 3,
     customTintColor: initialUnmappedFormData.customTintColor,
     useCustomTintColor: !!initialUnmappedFormData.customTintColor,
+    borderRadius: initialUnmappedFormData.borderRadius,
 
     // features
     pagesText: initialUnmappedFormData.pagesText,
@@ -83,6 +84,7 @@ export const getFormDataModified = (currentFormData, initialUnmappedFormData) =>
         defaultTintColor: blueTintDefaultModififed || purpleTintDefaultModififed || mintTintDefaultModififed || greenTintDefaultModififed,
         customTintColor: initFormData.customTintColor !== currentFormData.customTintColor,
         useCustomTintColor: !!initFormData.customTintColor != currentFormData.useCustomTintColor,
+        borderRadius: initFormData.borderRadius !== currentFormData.borderRadius,
 
         // features
         pagesText: currentFormData.pagesText.map( (text, i) => (
