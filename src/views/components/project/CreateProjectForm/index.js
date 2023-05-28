@@ -45,6 +45,24 @@ const BorderRadii = [
     }
 ]
 
+const ButtonBorderRadii = [
+    {
+        id: 'buttonBorderRadiusSquare',
+        radius: 0,
+        value: 'square',
+    },
+    {
+        id: 'buttonBorderRadiusRounded',
+        radius: 10,
+        value: 'rounded',
+    },
+    {
+        id: 'buttonBorderRadiusPill',
+        radius: 20,
+        value: 'pill',
+    }
+]
+
 export const CreateProjectFormComponent = props => {
     const {
         isEditMode=true,
@@ -106,6 +124,7 @@ export const CreateProjectFormComponent = props => {
             customTintColor: null,
             useCustomTintColor: false,
             borderRadius: 'rounded',
+            buttonBorderRadius: 'pill',
 
             // features
             pagesText: [],
@@ -186,62 +205,63 @@ export const CreateProjectFormComponent = props => {
         )
     ]
 
-    // test
-    useEffect(() => {
-        !isEditMode && setFormData({
-            // general
-            creatorName: props.isLoggedIn ? props.user.displayName : '',
-            projectName: 'Test',
-            projectType: 's',
-            logoImages: [],
-            logoImageURLs: [],
-            creatorPhoneNumber: '908-334-2404',
-            email: props.isLoggedIn ? props.user.email : '',
-            domainProviderURL: 'test',
-            domainProviderUsername: 'test',
-            domainProviderPassword: 'test',
+    // // test
+    // useEffect(() => {
+    //     !isEditMode && setFormData({
+    //         // general
+    //         creatorName: props.isLoggedIn ? props.user.displayName : '',
+    //         projectName: 'Test',
+    //         projectType: 's',
+    //         logoImages: [],
+    //         logoImageURLs: [],
+    //         creatorPhoneNumber: '908-334-2404',
+    //         email: props.isLoggedIn ? props.user.email : '',
+    //         domainProviderURL: 'test',
+    //         domainProviderUsername: 'test',
+    //         domainProviderPassword: 'test',
     
-            // landing
-            heroTitle: 'test',
-            heroMessage: 'test',
+    //         // landing
+    //         heroTitle: 'test',
+    //         heroMessage: 'test',
     
-            // theme
-            lightThemeSelected: true,
-            darkThemeSelected: false,
-            blueThemeSelected: false,
-            lightThemeDefault: true,
-            darkThemeDefault: false,
-            blueThemeDefault: false,
-            blueTintSelected: true,
-            purpleTintSelected: false,
-            mintTintSelected: false,
-            greenTintSelected: false,
-            blueTintDefault: true,
-            purpleTintDefault: false,
-            mintTintDefault: false,
-            greenTintDefault: false,
-            customTintColor: null,
-            useCustomTintColor: false,
-            borderRadius: 'rounded',
+    //         // theme
+    //         lightThemeSelected: true,
+    //         darkThemeSelected: false,
+    //         blueThemeSelected: false,
+    //         lightThemeDefault: true,
+    //         darkThemeDefault: false,
+    //         blueThemeDefault: false,
+    //         blueTintSelected: true,
+    //         purpleTintSelected: false,
+    //         mintTintSelected: false,
+    //         greenTintSelected: false,
+    //         blueTintDefault: true,
+    //         purpleTintDefault: false,
+    //         mintTintDefault: false,
+    //         greenTintDefault: false,
+    //         customTintColor: null,
+    //         useCustomTintColor: false,
+    //         borderRadius: 'rounded',
+    //         buttonBorderRadius: 'pill',
     
-            // features
-            pagesText: ['test', 'test'],
-            pagesImages: [],
-            pagesImageURLs: null,
+    //         // features
+    //         pagesText: ['test', 'test'],
+    //         pagesImages: [],
+    //         pagesImageURLs: null,
 
-            // subscriptions
-            hasSubscriptions: false,
-            subscriptionTiers: [],
+    //         // subscriptions
+    //         hasSubscriptions: false,
+    //         subscriptionTiers: [],
     
-            // terms
-            acceptedTermsAndConditions: true,
-            signature: 'test',
+    //         // terms
+    //         acceptedTermsAndConditions: true,
+    //         signature: 'test',
     
-            // payment
-            hasAccessCode: false,
-            accessCode: '',
-        })
-    }, [])
+    //         // payment
+    //         hasAccessCode: false,
+    //         accessCode: '',
+    //     })
+    // }, [])
 
     const selectedStep = progressSteps.find(({id}) => id === selectedStepID)
     const selectedProjectType = ProjectTypes.find(({id}) => id === formData.projectType)
@@ -293,7 +313,7 @@ export const CreateProjectFormComponent = props => {
         if (!Object.keys(modified).length) return
         setGeneralModified(modified.creatorName || modified.logoImageURLs || isEditMode && formData.logoImages.length || modified.creatorPhoneNumber || modified.domainProviderURL || modified.domainProviderUsername || modified.domainProviderPassword)
         setLandingModified(modified.heroTitle || modified.heroMessage)
-        setThemeModified(modified.themes || modified.defaultTheme || modified.selectedTintColors || modified.defaultTintColor || modified.customTintColor || modified.useCustomTintColor || modified.borderRadius) 
+        setThemeModified(modified.themes || modified.defaultTheme || modified.selectedTintColors || modified.defaultTintColor || modified.customTintColor || modified.useCustomTintColor || modified.borderRadius || modified.buttonBorderRadius) 
 
         let pagesTextModified = false
         let pagesImageURLsModified = false
@@ -684,6 +704,24 @@ export const CreateProjectFormComponent = props => {
                     borderRadius: 'pill'
                 }))
                 break
+            case 'buttonBorderRadiusSquare':
+                setFormData(curr => ({
+                    ...curr,
+                    buttonBorderRadius: 'square'
+                }))
+                break
+            case 'buttonBorderRadiusRounded':
+                setFormData(curr => ({
+                    ...curr,
+                    buttonBorderRadius: 'rounded'
+                }))
+                break
+            case 'buttonBorderRadiusPill':
+                setFormData(curr => ({
+                    ...curr,
+                    buttonBorderRadius: 'pill'
+                }))
+                break
             case 'hasSubscriptions':
                 if (formData.hasSubscriptions) {
                     setSubscriptionTiersCount(0)
@@ -892,6 +930,7 @@ export const CreateProjectFormComponent = props => {
             case 'defaultTintColor':
             case 'customTintColor':
             case 'borderRadius':
+            case 'buttonBorderRadius':
                 setSelectedStepID('theme')
                 break
             case 'pagesText':
@@ -1010,7 +1049,7 @@ export const CreateProjectFormComponent = props => {
                             message='This is the name that will appear in the top left corner of your site.'
                             hasError={errors.projectName}
                             modified={isEditMode && modified.projectName}
-                            locked={isEditMode}
+                            locked={isEditMode && (props.project ? props.project.editingLocked : true)}
                         />
                         <InputWithMessage
                             label='Project Type'
@@ -1247,7 +1286,7 @@ export const CreateProjectFormComponent = props => {
                             />
                         }
                         <InputWithMessage
-                            label='Border Radius'
+                            label='Elements Border Radius'
                             inputType='checklist'
                             checklistOptions={BorderRadii.map(({id, radius, value}) => ({
                                 title: capitalizeWords(value),
@@ -1258,6 +1297,22 @@ export const CreateProjectFormComponent = props => {
                             onClickCheckbox={onClickCheckbox}
                             message='Select one.'
                             modified={isEditMode && modified.borderRadius}
+                            locked={isEditMode && (props.project ? props.project.editingLocked : true)}
+                        />
+                        <InputWithMessage
+                            label='Button Border Radius'
+                            inputType='checklist'
+                            checklistOptions={ButtonBorderRadii.map(({id, radius, value}) => ({
+                                title: capitalizeWords(value),
+                                selected: formData.buttonBorderRadius === value,
+                                id,
+                                leftChild: <div className='button-border-radius-option' style={{borderRadius: radius}}>
+                                    Button
+                                </div>
+                            }))}
+                            onClickCheckbox={onClickCheckbox}
+                            message='Select one.'
+                            modified={isEditMode && modified.buttonBorderRadius}
                             locked={isEditMode && (props.project ? props.project.editingLocked : true)}
                         />
                     </div>
@@ -1619,13 +1674,24 @@ export const CreateProjectFormComponent = props => {
                             }
                             <div className='label-with-message-container'>
                                 <div className='label-container'>
-                                    <label>Border Radius</label>
+                                    <label>Elements Border Radius</label>
                                     <p className='review-item'>{capitalizeWords(formData.borderRadius)}</p>
                                 </div>
                                 <IconButton
                                     icon='bi-pencil'
                                     size='s'
                                     onClick={() => onClickEditField('borderRadius')}
+                                />
+                            </div>
+                            <div className='label-with-message-container'>
+                                <div className='label-container'>
+                                    <label>Button Border Radius</label>
+                                    <p className='review-item'>{capitalizeWords(formData.buttonBorderRadius)}</p>
+                                </div>
+                                <IconButton
+                                    icon='bi-pencil'
+                                    size='s'
+                                    onClick={() => onClickEditField('buttonBorderRadius')}
                                 />
                             </div>
                         </div>
@@ -1916,10 +1982,18 @@ const Container = styled.div`
     }
 
     & .border-radius-option {
-        height: 125px;
-        width: 125px;
+        height: 100px;
+        width: 100px;
         border: 1px solid ${p => p.theme.bc};
         background-color: ${p => p.theme.bgcInput};
+    }
+
+    & .button-border-radius-option {
+        background-color: ${p => p.theme.bgcInput};
+        padding: 5px 20px;
+        font-size: 14px;
+        color: ${p => p.theme.textMain};
+        border: 1px solid ${p => p.theme.textMain};
     }
 
     & .review-section {

@@ -68,6 +68,8 @@ const Root = styled.div`
         transition: var(--duration-animation);
     }
 
+    
+
     input::file-selector-button {
         border-radius: 20px;
         padding: 5px 10px;

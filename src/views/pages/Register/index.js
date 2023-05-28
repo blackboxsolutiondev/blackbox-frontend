@@ -51,7 +51,6 @@ export const RegisterComponent = props => {
 
     const onClickContinueWithGoogle = async () => {
         try {
-            // signInWithRedirect(auth, new GoogleAuthProvider())
             const result = await signInWithPopup(auth, new GoogleAuthProvider())
             if (result) {
                 const {user} = result
@@ -82,7 +81,7 @@ export const RegisterComponent = props => {
     return (
         <PageContainer>
             <LandingHeader showButtons={false} />
-            <BodyContainer className='ai-center'>
+            <BodyContainer className='ai-center bgc-tt'>
                 <LoginCard className='d-flex fd-column ai-stretch'>
                     <h3>Create your account</h3>
                     <br /><br />

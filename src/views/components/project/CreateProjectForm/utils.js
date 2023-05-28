@@ -33,6 +33,7 @@ export const getFormData = initialUnmappedFormData => ({
     customTintColor: initialUnmappedFormData.customTintColor,
     useCustomTintColor: !!initialUnmappedFormData.customTintColor,
     borderRadius: initialUnmappedFormData.borderRadius,
+    buttonBorderRadius: initialUnmappedFormData.buttonBorderRadius,
 
     // features
     pagesText: initialUnmappedFormData.pagesText,
@@ -67,6 +68,7 @@ export const getFormDataModified = (currentFormData, initialUnmappedFormData) =>
 
     return {
         // general
+        projectName: initFormData.projectName !== currentFormData.projectName,
         logoImageURLs: initFormData.logoImageURLs !== currentFormData.logoImageURLs,
         creatorPhoneNumber: initFormData.creatorPhoneNumber !== currentFormData.creatorPhoneNumber,
         domainProviderURL: initFormData.domainProviderURL !== currentFormData.domainProviderURL,
@@ -85,6 +87,7 @@ export const getFormDataModified = (currentFormData, initialUnmappedFormData) =>
         customTintColor: initFormData.customTintColor !== currentFormData.customTintColor,
         useCustomTintColor: !!initFormData.customTintColor != currentFormData.useCustomTintColor,
         borderRadius: initFormData.borderRadius !== currentFormData.borderRadius,
+        buttonBorderRadius: initFormData.buttonBorderRadius !== currentFormData.buttonBorderRadius,
 
         // features
         pagesText: currentFormData.pagesText.map( (text, i) => (

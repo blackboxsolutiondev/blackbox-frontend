@@ -33,6 +33,7 @@ export const mapProjectFormDataToProjectData = formData => ({
     ,
     customTintColor: formData.customTintColor,
     borderRadius: formData.borderRadius,
+    buttonBorderRadius: formData.buttonBorderRadius,
 
     pagesText: formData.pagesText,
     pagesImageURLs: formData.pagesImageURLs,

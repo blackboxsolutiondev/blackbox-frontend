@@ -199,7 +199,7 @@ export const LandingComponent = props => {
                     </div>
                 </div>
                 <div className='copyright-container'>
-                    <p>© {moment().year()} {process.env.REACT_APP_SITE_NAME}. All rights reserved.</p>
+                    <p>© {moment().year()} {process.env.REACT_APP_SITE_NAME} Corporation. All rights reserved.</p>
                 </div>
             </Container>
         </PageContainer>
