@@ -474,7 +474,7 @@ const Container = styled.div`
     }
     & .social-icon {
         color: ${p => p.theme.textTertiary};
-        font-size: 30px;
+        font-size: 40px;
         margin-left: 15px;
         cursor: pointer;
     }
