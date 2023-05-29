@@ -46,7 +46,7 @@ const Root = styled.div`
     & .step-container .title {
         font-weight: 600;
         cursor: pointer;
-        margin-top: 3px;
+        margin-top: 2px;
     }
     & .step-container .title:hover {
         color: ${p => p.theme.tint} !important;
@@ -67,17 +67,17 @@ const Root = styled.div`
 
     & .progress-bar-container i {
         color: ${p => p.theme.tint};
-        font-size: 20px;
+        font-size: 18px;
     }
     & .step-container.incomplete i {
         color: ${p => p.theme.textSecondary};
     }
 
     & .progress-bar {
-        width: 4px;
+        width: 3px;
         background-color: ${p => p.theme.tint};
         border-radius: 3px;
-        height: 30px;
+        height: 20px;
         margin-bottom: 5px;
     }
     & .step-container.incomplete .progress-bar {

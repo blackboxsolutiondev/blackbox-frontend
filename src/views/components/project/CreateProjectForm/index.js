@@ -1368,6 +1368,7 @@ export const CreateProjectFormComponent = props => {
                                 <p className='review-item ml-10'>- Support Page</p>
                                 <p className='review-item ml-10'>- Admin Console Page</p>
                                 <p className='review-item ml-10'>- Notifications Page</p>
+                                <p className='review-item ml-10'>- Subscription Portal</p>
                             </div>
                         </div>
                         {formData.pagesText.map( (text, i) => (

@@ -112,9 +112,9 @@ export const getFormDataModified = (currentFormData, initialUnmappedFormData) =>
         })),
 
         // socials
-        linkedInURL: initFormData.linkedInURL !== currentFormData.linkedInURL,
-        facebookURL: initFormData.facebookURL !== currentFormData.facebookURL,
-        instagramURL: initFormData.instagramURL !== currentFormData.instagramURL,
-        twitterURL: initFormData.twitterURL !== currentFormData.twitterURL,
+        linkedInURL: initFormData.linkedInURL !== currentFormData.linkedInURL && (initFormData.linkedInURL.length || currentFormData.linkedInURL.length),
+        facebookURL: initFormData.facebookURL !== currentFormData.facebookURL && (initFormData.facebookURL.length || currentFormData.facebookURL.length),
+        instagramURL: initFormData.instagramURL !== currentFormData.instagramURL && (initFormData.instagramURL.length || currentFormData.instagramURL.length),
+        twitterURL: initFormData.twitterURL !== currentFormData.twitterURL && (initFormData.twitterURL.length || currentFormData.twitterURL.length),
     }
 }
