@@ -21,6 +21,7 @@ export const InputWithMessage = props => {
         hasError,
         modified=false,
         locked=false,
+        optional=false,
         rightChild=null,
     
         onChangeText, // e => void
@@ -36,6 +37,10 @@ export const InputWithMessage = props => {
             <div className='input-container'>
                 <div className='label-header'>
                     <label>{label}</label>
+                    {optional ?
+                        <h5 className='optional-text' style={{marginRight: 10}}>Optional</h5>
+                        : null
+                    }
                     {hasError ?
                         <PillLabel title='Required Field' size='s' color='red' style={{marginRight: 10}}/>
                         : null
@@ -170,5 +175,9 @@ const Root = styled.div`
     & .lock-icon {
         font-size: 15px;
         color: ${p => p.theme.textSecondary};
+    }
+
+    & .optional-text {
+        color: ${p => p.theme.textTertiary};
     }
 `

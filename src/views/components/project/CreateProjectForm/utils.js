@@ -43,6 +43,12 @@ export const getFormData = initialUnmappedFormData => ({
     // subscriptions
     hasSubscriptions: initialUnmappedFormData.hasSubscriptions,
     subscriptionTiers: initialUnmappedFormData.subscriptionTiers,
+
+    // socials
+    linkedInURL: initialUnmappedFormData.linkedInURL,
+    facebookURL: initialUnmappedFormData.facebookURL,
+    instagramURL: initialUnmappedFormData.instagramURL,
+    twitterURL: initialUnmappedFormData.twitterURL,
 })
 
 export const getFormDataModified = (currentFormData, initialUnmappedFormData) => {
@@ -103,6 +109,12 @@ export const getFormDataModified = (currentFormData, initialUnmappedFormData) =>
             name: initFormData.subscriptionTiers[i] ? initFormData.subscriptionTiers[i].name !== subscriptionTier.name : true,
             pricePerMonth: initFormData.subscriptionTiers[i] ? initFormData.subscriptionTiers[i].pricePerMonth !== subscriptionTier.pricePerMonth : true,
             features: initFormData.subscriptionTiers[i] ? initFormData.subscriptionTiers[i].features !== subscriptionTier.features : true
-        }))
+        })),
+
+        // socials
+        linkedInURL: initFormData.linkedInURL !== currentFormData.linkedInURL,
+        facebookURL: initFormData.facebookURL !== currentFormData.facebookURL,
+        instagramURL: initFormData.instagramURL !== currentFormData.instagramURL,
+        twitterURL: initFormData.twitterURL !== currentFormData.twitterURL,
     }
 }

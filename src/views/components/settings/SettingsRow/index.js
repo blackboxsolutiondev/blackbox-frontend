@@ -48,7 +48,7 @@ export const SettingsRow = props => {
             setTimeout(() => {
                 closeEditForm()
                 setLoadingUpdate(false)
-            }, 3*1000)
+            }, 1*1000)
         },
         () => setLoadingUpdate(false)
     )

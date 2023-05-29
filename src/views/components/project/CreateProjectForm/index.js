@@ -83,6 +83,7 @@ export const CreateProjectFormComponent = props => {
     const [themeCompleted, setThemeCompleted] = useState(isEditMode)
     const [featuresCompleted, setFeaturesCompleted] = useState(isEditMode)
     const [subscriptionsCompleted, setSubscriptionsCompleted] = useState(isEditMode)
+    const [socialsCompleted, setSocialsCompleted] = useState(isEditMode)
     const [reviewCompleted, setReviewCompleted] = useState(isEditMode)
     const [termsCompleted, setTermsCompleted] = useState(isEditMode)
     const [paymentCompleted, setPaymentCompleted] = useState(isEditMode)
@@ -135,6 +136,12 @@ export const CreateProjectFormComponent = props => {
             hasSubscriptions: false,
             subscriptionTiers: [],
 
+            // socials
+            linkedInURL: '',
+            facebookURL: '',
+            instagramURL: '',
+            twitterURL: '',
+
             // terms
             acceptedTermsAndConditions: false,
             signature: '',
@@ -183,6 +190,7 @@ export const CreateProjectFormComponent = props => {
     const [themeModified, setThemeModified] = useState(false)
     const [featuresModified, setFeaturesModified] = useState(false)
     const [subscriptionsModified, setSubscriptionsModified] = useState(false)
+    const [socialsModified, setSocialsModified] = useState(false)
     const [formDataModified, setFormDataModified] = useState(false)
     // Misc
     const [loadingCreateProject, setLoadingCreateProject] = useState(false)
@@ -195,6 +203,7 @@ export const CreateProjectFormComponent = props => {
         {title: 'Theme', isComplete: themeCompleted, id: 'theme'},
         {title: 'Features', isComplete: featuresCompleted, id: 'features'},
         {title: 'Subscriptions', isComplete: subscriptionsCompleted, id: 'subscriptions'},
+        {title: 'Socials', isComplete: socialsCompleted, id: 'socials'},
         {title: isEditMode ? 'Overview' : 'Review', isComplete: reviewCompleted, id: 'review'},
         ...(isEditMode ?
             []
@@ -205,63 +214,69 @@ export const CreateProjectFormComponent = props => {
         )
     ]
 
-    // // test
-    // useEffect(() => {
-    //     !isEditMode && setFormData({
-    //         // general
-    //         creatorName: props.isLoggedIn ? props.user.displayName : '',
-    //         projectName: 'Test',
-    //         projectType: 's',
-    //         logoImages: [],
-    //         logoImageURLs: [],
-    //         creatorPhoneNumber: '908-334-2404',
-    //         email: props.isLoggedIn ? props.user.email : '',
-    //         domainProviderURL: 'test',
-    //         domainProviderUsername: 'test',
-    //         domainProviderPassword: 'test',
+    // test
+    useEffect(() => {
+        !isEditMode && setFormData({
+            // general
+            creatorName: props.isLoggedIn ? props.user.displayName : 'test',
+            projectName: 'Test',
+            projectType: 's',
+            logoImages: [],
+            logoImageURLs: [],
+            creatorPhoneNumber: '908-334-2404',
+            email: props.isLoggedIn ? props.user.email : 'liammccluskey2@gmail.com',
+            domainProviderURL: 'test',
+            domainProviderUsername: 'test',
+            domainProviderPassword: 'test',
     
-    //         // landing
-    //         heroTitle: 'test',
-    //         heroMessage: 'test',
+            // landing
+            heroTitle: 'test',
+            heroMessage: 'test',
     
-    //         // theme
-    //         lightThemeSelected: true,
-    //         darkThemeSelected: false,
-    //         blueThemeSelected: false,
-    //         lightThemeDefault: true,
-    //         darkThemeDefault: false,
-    //         blueThemeDefault: false,
-    //         blueTintSelected: true,
-    //         purpleTintSelected: false,
-    //         mintTintSelected: false,
-    //         greenTintSelected: false,
-    //         blueTintDefault: true,
-    //         purpleTintDefault: false,
-    //         mintTintDefault: false,
-    //         greenTintDefault: false,
-    //         customTintColor: null,
-    //         useCustomTintColor: false,
-    //         borderRadius: 'rounded',
-    //         buttonBorderRadius: 'pill',
+            // theme
+            lightThemeSelected: true,
+            darkThemeSelected: false,
+            blueThemeSelected: false,
+            lightThemeDefault: true,
+            darkThemeDefault: false,
+            blueThemeDefault: false,
+            blueTintSelected: true,
+            purpleTintSelected: false,
+            mintTintSelected: false,
+            greenTintSelected: false,
+            blueTintDefault: true,
+            purpleTintDefault: false,
+            mintTintDefault: false,
+            greenTintDefault: false,
+            customTintColor: null,
+            useCustomTintColor: false,
+            borderRadius: 'rounded',
+            buttonBorderRadius: 'pill',
     
-    //         // features
-    //         pagesText: ['test', 'test'],
-    //         pagesImages: [],
-    //         pagesImageURLs: null,
+            // features
+            pagesText: ['test', 'test'],
+            pagesImages: [],
+            pagesImageURLs: null,
 
-    //         // subscriptions
-    //         hasSubscriptions: false,
-    //         subscriptionTiers: [],
+            // subscriptions
+            hasSubscriptions: false,
+            subscriptionTiers: [],
+
+            // socials
+            linkedInURL: '',
+            facebookURL: '',
+            instagramURL: '',
+            twitterURL: '',
     
-    //         // terms
-    //         acceptedTermsAndConditions: true,
-    //         signature: 'test',
+            // terms
+            acceptedTermsAndConditions: true,
+            signature: 'test',
     
-    //         // payment
-    //         hasAccessCode: false,
-    //         accessCode: '',
-    //     })
-    // }, [])
+            // payment
+            hasAccessCode: false,
+            accessCode: '',
+        })
+    }, [])
 
     const selectedStep = progressSteps.find(({id}) => id === selectedStepID)
     const selectedProjectType = ProjectTypes.find(({id}) => id === formData.projectType)
@@ -334,11 +349,12 @@ export const CreateProjectFormComponent = props => {
             if (name || pricePerMonth || features) subscriptionTiersModified = true
         })
         setSubscriptionsModified(modified.hasSubscriptions || subscriptionTiersModified)
+        setSocialsModified(modified.linkedInURL || modified.facebookURL || modified.instagramURL || modified.twitterURL)
     }, [modified])
 
     useEffect(() => {
-        setFormDataModified(generalModified || landingModified || themeModified || featuresModified || subscriptionsModified)
-    }, [generalModified, landingModified, themeModified, featuresModified, subscriptionsModified])
+        setFormDataModified(generalModified || landingModified || themeModified || featuresModified || subscriptionsModified || socialsModified)
+    }, [generalModified, landingModified, themeModified, featuresModified, subscriptionsModified, socialsModified])
 
     // Utils
 
@@ -371,18 +387,23 @@ export const CreateProjectFormComponent = props => {
                     setSelectedStepID('subscriptions')
                 }
                 break
-            case 'review':
+            case 'socials':
                 if (isEditMode || generalCompleted && landingCompleted && themeCompleted && featuresCompleted && subscriptionsCompleted || completedSteps.subscriptions) {
+                    setSelectedStepID('socials')
+                }
+                break
+            case 'review':
+                if (isEditMode || generalCompleted && landingCompleted && themeCompleted && featuresCompleted && subscriptionsCompleted && socialsCompleted || completedSteps.socials) {
                     setSelectedStepID('review')
                 }
                 break
             case 'terms':
-                if (isEditMode || generalCompleted && landingCompleted && themeCompleted && featuresCompleted && subscriptionsCompleted && reviewCompleted || completedSteps.review) {
+                if (isEditMode || generalCompleted && landingCompleted && themeCompleted && featuresCompleted && subscriptionsCompleted && socialsCompleted && reviewCompleted || completedSteps.review) {
                     setSelectedStepID('terms')
                 }
                 break
             case 'payment':
-                if (isEditMode || generalCompleted && landingCompleted && themeCompleted && featuresCompleted && subscriptionsCompleted && reviewCompleted && termsCompleted || completedSteps.terms) {
+                if (isEditMode || generalCompleted && landingCompleted && themeCompleted && featuresCompleted && subscriptionsCompleted && socialsCompleted && reviewCompleted && termsCompleted || completedSteps.terms) {
                     setSelectedStepID('payment')
                 }
                 break
@@ -406,7 +427,7 @@ export const CreateProjectFormComponent = props => {
                 const domainProviderPasswordCompleted = !!formData.domainProviderPassword
                 setErrors(curr => ({
                     ...curr,
-                    name: !nameCompleted,
+                    creatorName: !nameCompleted,
                     projectName: !projectNameCompleted,
                     logoImages: !logoImagesCompleted,
                     creatorPhoneNumber: !phoneNumberCompleted,
@@ -494,6 +515,10 @@ export const CreateProjectFormComponent = props => {
                     showMissingRequiredFieldsError()
                 }
                 break
+            case 'socials':
+                setSocialsCompleted(true)
+                navigateToStep(navigateToStepID, {socials: true})
+                break
             case 'terms':
                 const signatureCompleted = !!formData.signature && formData.signature === formData.creatorName
                 setErrors(curr => ({
@@ -546,6 +571,9 @@ export const CreateProjectFormComponent = props => {
                 break
             case 'subscriptions':
                 onNavigateAwayFromStep('subscriptions')
+                break
+            case 'socials':
+                onNavigateAwayFromStep('socials')
                 break
             case 'review':
                 onNavigateAwayFromStep('review')
@@ -940,6 +968,12 @@ export const CreateProjectFormComponent = props => {
             case 'subscriptions':
                 setSelectedStepID('subscriptions')
                 break
+            case 'linkedInURL':
+            case 'facebookURL':
+            case 'instagramURL':
+            case 'twitterURL':
+                setSelectedStepID('socials')
+                break
         }
     }
 
@@ -957,8 +991,11 @@ export const CreateProjectFormComponent = props => {
             case 'subscriptions':
                 onNavigateAwayFromStep('features')
                 break
-            case 'review':
+            case 'socials':
                 onNavigateAwayFromStep('subscriptions')
+                break
+            case 'review':
+                onNavigateAwayFromStep('socials')
                 break
             case 'terms':
                 onNavigateAwayFromStep('review')
@@ -984,6 +1021,9 @@ export const CreateProjectFormComponent = props => {
                 onNavigateAwayFromStep('subscriptions')
                 break
             case 'subscriptions':
+                onNavigateAwayFromStep('socials')
+                break
+            case 'socials':
                 onNavigateAwayFromStep('review')
                 break
             case 'review':
@@ -1430,6 +1470,57 @@ export const CreateProjectFormComponent = props => {
                             : null
                         }
                     </div>
+                : selectedStepID === 'socials' ?
+                    <div className='inner-form-container'>
+                        <InputWithMessage
+                            label='LinkedIn URL'
+                            inputType='text'
+                            text={formData.linkedInURL}
+                            onChangeText={onChangeFormValue}
+                            fieldName='linkedInURL'
+                            message=' '
+                            placeholder='https://'
+                            modified={isEditMode && modified.linkedInURL}
+                            locked={isEditMode && (props.project ? props.project.editingLocked : true)}
+                            optional={true}
+                        />
+                        <InputWithMessage
+                            label='Facebook URL'
+                            inputType='text'
+                            text={formData.facebookURL}
+                            onChangeText={onChangeFormValue}
+                            fieldName='facebookURL'
+                            message=' '
+                            placeholder='https://'
+                            modified={isEditMode && modified.facebookURL}
+                            locked={isEditMode && (props.project ? props.project.editingLocked : true)}
+                            optional={true}
+                        />
+                        <InputWithMessage
+                            label='Instagram URL'
+                            inputType='text'
+                            text={formData.instagramURL}
+                            onChangeText={onChangeFormValue}
+                            fieldName='instagramURL'
+                            message=' '
+                            placeholder='https://'
+                            modified={isEditMode && modified.instagramURL}
+                            locked={isEditMode && (props.project ? props.project.editingLocked : true)}
+                            optional={true}
+                        />
+                        <InputWithMessage
+                            label='Twitter URL'
+                            inputType='text'
+                            text={formData.twitterURL}
+                            onChangeText={onChangeFormValue}
+                            fieldName='twitterURL'
+                            message=' '
+                            placeholder='https://'
+                            modified={isEditMode && modified.twitterURL}
+                            locked={isEditMode && (props.project ? props.project.editingLocked : true)}
+                            optional={true}
+                        />
+                    </div>
                 : selectedStepID === 'review' ? 
                     <div className='inner-form-container'>
                         <h3 className='review-title'>General</h3>
@@ -1781,6 +1872,53 @@ export const CreateProjectFormComponent = props => {
                                     </div>
                                 </div>
                             ))}
+                        </div>
+                        <h3 className='review-title'>Socials</h3>
+                        <div className='review-section'>
+                            <div className='label-with-message-container'>
+                                <div className='label-container'>
+                                    <label>LinkedIn URL</label>
+                                    <p className='review-item'>{formData.linkedInURL || 'None provided'}</p>
+                                </div>
+                                <IconButton
+                                    icon='bi-pencil'
+                                    size='s'
+                                    onClick={() => onClickEditField('linkedInURL')}
+                                />
+                            </div>
+                            <div className='label-with-message-container'>
+                                <div className='label-container'>
+                                    <label>Facebook URL</label>
+                                    <p className='review-item'>{formData.facebookURL || 'None provided'}</p>
+                                </div>
+                                <IconButton
+                                    icon='bi-pencil'
+                                    size='s'
+                                    onClick={() => onClickEditField('facebookURL')}
+                                />
+                            </div>
+                            <div className='label-with-message-container'>
+                                <div className='label-container'>
+                                    <label>Instagram URL</label>
+                                    <p className='review-item'>{formData.instagramURL || 'None provided'}</p>
+                                </div>
+                                <IconButton
+                                    icon='bi-pencil'
+                                    size='s'
+                                    onClick={() => onClickEditField('instagramURL')}
+                                />
+                            </div>
+                            <div className='label-with-message-container'>
+                                <div className='label-container'>
+                                    <label>Twitter URL</label>
+                                    <p className='review-item'>{formData.twitterURL || 'None provided'}</p>
+                                </div>
+                                <IconButton
+                                    icon='bi-pencil'
+                                    size='s'
+                                    onClick={() => onClickEditField('twitterURL')}
+                                />
+                            </div>
                         </div>
                     </div>
                 : selectedStepID === 'terms' && !isEditMode ?

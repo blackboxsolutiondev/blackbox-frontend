@@ -90,6 +90,25 @@ const Config = {
     ]
 }
 
+const Socials = [
+    {
+        url: 'https://linkedin.com/company/95960569',
+        icon: 'bi-linkedin',
+    },
+    // {
+    //     url: '',
+    //     icon: 'bi-facebook',
+    // },
+    // {
+    //     url: '',
+    //     icon: 'bi-instagram',
+    // },
+    // {
+    //     url: '',
+    //     icon: 'bi-twitter',
+    // },
+]
+
 export const LandingComponent = props => {
     const navigate = useNavigate()
     const [selectedWhyChooseUsOptionID, setSelectedWhyChooseUsOptionID] = useState(Config.whyChooseUs[0].id)
@@ -114,6 +133,10 @@ export const LandingComponent = props => {
 
     const onClickPricingOption = optionID => {
         navigate(`/create/${optionID}`)
+    }
+
+    const onClickSocialIcon = url => {
+        window.open(url, '_blank')
     }
 
     return (
@@ -195,6 +218,14 @@ export const LandingComponent = props => {
                                     style={{marginTop: 15}}
                                 />
                             </div>
+                        ))}
+                    </div>
+                </div>
+                <div className='socials-container' style={{justifyContent: 'space-between'}}>
+                    <h1>Follow Us</h1>
+                    <div className='social-icons-container'>
+                        {Socials.map(({icon, url}) => (
+                            <i className={`${icon} social-icon`} onClick={() => onClickSocialIcon(url)} />
                         ))}
                     </div>
                 </div>
@@ -421,6 +452,34 @@ const Container = styled.div`
     }
     & .feature-list-item.bold h3 {
         font-weight: 600;
+    }
+
+    & .socials-container {
+        display: flex;
+        align-items: center;
+        padding: 50px;
+        background-color: ${p => p.theme.bgcSettings};
+        border-bottom: 1px solid black;
+    }
+    &.semi-mobile .socials-container {
+        padding: 30px;
+    }
+    &.mobile .socials-container {
+        padding: 30px 15px;
+    }
+    & .social-icons-container {
+        display: inline-flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    & .social-icon {
+        color: ${p => p.theme.textTertiary};
+        font-size: 30px;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+    & .social-icon:hover {
+        color: ${p => p.theme.tint};
     }
 
     & .copyright-container {

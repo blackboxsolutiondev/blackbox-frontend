@@ -41,6 +41,11 @@ export const mapProjectFormDataToProjectData = formData => ({
     hasSubscriptions: formData.hasSubscriptions,
     subscriptionTiers: formData.subscriptionTiers,
 
+    linkedInURL: formData.linkedInURL,
+    facebookURL: formData.facebookURL,
+    instagramURL: formData.instagramURL,
+    twitterURL: formData.twitterURL,
+
     accessCode: formData.accessCode
 })
 
