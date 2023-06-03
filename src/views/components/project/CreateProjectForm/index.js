@@ -326,6 +326,9 @@ export const CreateProjectFormComponent = props => {
 
     useEffect(() => {
         if (!Object.keys(modified).length) return
+        console.log(JSON.stringify(
+            {modified, formData, initFormData}
+        , null, 4))
         setGeneralModified(modified.creatorName || modified.logoImageURLs || isEditMode && formData.logoImages.length || modified.creatorPhoneNumber || modified.domainProviderURL || modified.domainProviderUsername || modified.domainProviderPassword)
         setLandingModified(modified.heroTitle || modified.heroMessage)
         setThemeModified(modified.themes || modified.defaultTheme || modified.selectedTintColors || modified.defaultTintColor || modified.customTintColor || modified.useCustomTintColor || modified.borderRadius || modified.buttonBorderRadius) 
