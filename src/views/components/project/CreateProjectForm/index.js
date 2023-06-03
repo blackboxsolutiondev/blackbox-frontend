@@ -325,6 +325,9 @@ export const CreateProjectFormComponent = props => {
     }, [formData.accessCode])
 
     useEffect(() => {
+        console.log(JSON.stringify(
+            {modified}
+        , null, 4))
         if (!Object.keys(modified).length) return
         setGeneralModified(modified.creatorName || modified.logoImageURLs || isEditMode && formData.logoImages.length || modified.creatorPhoneNumber || modified.domainProviderURL || modified.domainProviderUsername || modified.domainProviderPassword)
         setLandingModified(modified.heroTitle || modified.heroMessage)
