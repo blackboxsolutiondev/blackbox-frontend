@@ -291,6 +291,7 @@ export const CreateProjectFormComponent = props => {
     }, [initFormData])
 
     useEffect(() => {
+        if (initFormData) return
         const {pagesCount} = selectedProjectType
         setFormData(curr => ({
             ...curr,
@@ -298,6 +299,10 @@ export const CreateProjectFormComponent = props => {
             pagesImages: Array(pagesCount).fill(new Array(0)),
             pagesImageURLs: Array(pagesCount).fill(new Array(0)),
         }))
+    }, [selectedProjectType])
+
+    useEffect(() => {
+        const {pagesCount} = selectedProjectType
         setErrors(curr => ({
             ...curr,
             pagesTextErrors: Array(pagesCount).fill(false)
@@ -325,10 +330,6 @@ export const CreateProjectFormComponent = props => {
     }, [formData.accessCode])
 
     useEffect(() => {
-        if (!Object.keys(modified).length) return
-        console.log(JSON.stringify(
-            {modified, formData, initFormData}
-        , null, 4))
         setGeneralModified(modified.creatorName || modified.logoImageURLs || isEditMode && formData.logoImages.length || modified.creatorPhoneNumber || modified.domainProviderURL || modified.domainProviderUsername || modified.domainProviderPassword)
         setLandingModified(modified.heroTitle || modified.heroMessage)
         setThemeModified(modified.themes || modified.defaultTheme || modified.selectedTintColors || modified.defaultTintColor || modified.customTintColor || modified.useCustomTintColor || modified.borderRadius || modified.buttonBorderRadius) 

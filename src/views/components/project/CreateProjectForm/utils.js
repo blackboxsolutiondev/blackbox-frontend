@@ -1,4 +1,4 @@
-export const _getFormData = initialUnmappedFormData => ({
+export const getFormData = initialUnmappedFormData => ({
     // general
     creatorName: initialUnmappedFormData.creator.displayName,
     projectName: initialUnmappedFormData.projectName,
@@ -50,16 +50,6 @@ export const _getFormData = initialUnmappedFormData => ({
     instagramURL: initialUnmappedFormData.instagramURL,
     twitterURL: initialUnmappedFormData.twitterURL,
 })
-
-export const getFormData = init => {
-    const formData = _getFormData(init)
-
-    console.log(JSON.stringify(
-        {method: 'getformdata', formData}
-    , null, 4))
-
-    return formData
-}
 
 export const getFormDataModified = (currentFormData, initialUnmappedFormData) => {
     if (!initialUnmappedFormData) return {}
