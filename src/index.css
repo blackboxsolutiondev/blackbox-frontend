@@ -71,7 +71,7 @@ th {
   --duration-animation: 0.2s;
   --duration-animation-medium: 0.5s;
   --duration-animation-long: 2s;
-  --font-family: 'Nunito Sans', sans-serif;
+  --font-family: 'Nunito Sans', sans-serif; 
 }
 
 @media only screen and (max-width: 800px) {
