@@ -214,69 +214,69 @@ export const CreateProjectFormComponent = props => {
         )
     ]
 
-    // test
-    useEffect(() => {
-        !isEditMode && setFormData({
-            // general
-            creatorName: props.isLoggedIn ? props.user.displayName : 'test',
-            projectName: 'Test',
-            projectType: 's',
-            logoImages: [],
-            logoImageURLs: [],
-            creatorPhoneNumber: '908-334-2404',
-            email: props.isLoggedIn ? props.user.email : 'liammccluskey2@gmail.com',
-            domainProviderURL: 'test',
-            domainProviderUsername: 'test',
-            domainProviderPassword: 'test',
+    // // test
+    // useEffect(() => {
+    //     !isEditMode && setFormData({
+    //         // general
+    //         creatorName: props.isLoggedIn ? props.user.displayName : 'test',
+    //         projectName: 'Test',
+    //         projectType: 's',
+    //         logoImages: [],
+    //         logoImageURLs: [],
+    //         creatorPhoneNumber: '908-334-2404',
+    //         email: props.isLoggedIn ? props.user.email : 'liammccluskey2@gmail.com',
+    //         domainProviderURL: 'test',
+    //         domainProviderUsername: 'test',
+    //         domainProviderPassword: 'test',
     
-            // landing
-            heroTitle: 'test',
-            heroMessage: 'test',
+    //         // landing
+    //         heroTitle: 'test',
+    //         heroMessage: 'test',
     
-            // theme
-            lightThemeSelected: true,
-            darkThemeSelected: false,
-            blueThemeSelected: false,
-            lightThemeDefault: true,
-            darkThemeDefault: false,
-            blueThemeDefault: false,
-            blueTintSelected: true,
-            purpleTintSelected: false,
-            mintTintSelected: false,
-            greenTintSelected: false,
-            blueTintDefault: true,
-            purpleTintDefault: false,
-            mintTintDefault: false,
-            greenTintDefault: false,
-            customTintColor: null,
-            useCustomTintColor: false,
-            borderRadius: 'rounded',
-            buttonBorderRadius: 'pill',
+    //         // theme
+    //         lightThemeSelected: true,
+    //         darkThemeSelected: false,
+    //         blueThemeSelected: false,
+    //         lightThemeDefault: true,
+    //         darkThemeDefault: false,
+    //         blueThemeDefault: false,
+    //         blueTintSelected: true,
+    //         purpleTintSelected: false,
+    //         mintTintSelected: false,
+    //         greenTintSelected: false,
+    //         blueTintDefault: true,
+    //         purpleTintDefault: false,
+    //         mintTintDefault: false,
+    //         greenTintDefault: false,
+    //         customTintColor: null,
+    //         useCustomTintColor: false,
+    //         borderRadius: 'rounded',
+    //         buttonBorderRadius: 'pill',
     
-            // features
-            pagesText: ['test', 'test'],
-            pagesImages: [],
-            pagesImageURLs: null,
+    //         // features
+    //         pagesText: ['test', 'test'],
+    //         pagesImages: [],
+    //         pagesImageURLs: null,
 
-            // subscriptions
-            hasSubscriptions: false,
-            subscriptionTiers: [],
+    //         // subscriptions
+    //         hasSubscriptions: false,
+    //         subscriptionTiers: [],
 
-            // socials
-            linkedInURL: '',
-            facebookURL: '',
-            instagramURL: '',
-            twitterURL: '',
+    //         // socials
+    //         linkedInURL: '',
+    //         facebookURL: '',
+    //         instagramURL: '',
+    //         twitterURL: '',
     
-            // terms
-            acceptedTermsAndConditions: true,
-            signature: 'test',
+    //         // terms
+    //         acceptedTermsAndConditions: true,
+    //         signature: 'test',
     
-            // payment
-            hasAccessCode: false,
-            accessCode: '',
-        })
-    }, [])
+    //         // payment
+    //         hasAccessCode: false,
+    //         accessCode: '',
+    //     })
+    // }, [])
 
     const selectedStep = progressSteps.find(({id}) => id === selectedStepID)
     const selectedProjectType = ProjectTypes.find(({id}) => id === formData.projectType)
