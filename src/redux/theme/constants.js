@@ -46,9 +46,8 @@ const LightTheme = {
     navBorder: '1px solid rgb(215, 222, 226)',
     boxShadowDark: '0 3px 20px rgb(89 105 129 / 30%), 0 1px 2px rgb(0 0 0 / 5%), 0 0 0 1px rgb(89 105 129 / 10%)',
 
-    // bgc: 'white',
-    // floatBorder: '1px solid rgb(218, 220, 224)',
-    // boxShadow: 'none',
+    floatBorder: '1px solid rgb(218, 220, 224)',
+    boxShadow: 'none',
 }
 
 const DarkTheme = {
