@@ -32,7 +32,7 @@ const Config = {
         },
         {
             id: 2,
-            imageURL: 'https://firebasestorage.googleapis.com/v0/b/blackbox-solution.appspot.com/o/landing%2Fadmin_tools.png?alt=media&token=655e12c6-f2f1-4650-9c46-fbc401db3058',
+            imageURL: 'https://firebasestorage.googleapis.com/v0/b/blackbox-solution.appspot.com/o/landing%2Fpremium_page.png?alt=media&token=f903d293-ed39-42e0-b874-f3cdb63fe8db&_gl=1*al97m4*_ga*MTI3Nzc5MTI1OS4xNjc3MTg2NTQ2*_ga_CW55HF8NVT*MTY4NjMxNzU3MC4yNS4xLjE2ODYzMTc4MTIuMC4wLjA.',
             title: 'Stripe integration',
             message: "If your site uses a subscription model we've got you covered. Our webapps come with Stripe pre-integrated.",
             icon: 'bi-credit-card'

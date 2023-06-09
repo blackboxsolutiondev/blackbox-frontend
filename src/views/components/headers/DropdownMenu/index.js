@@ -36,7 +36,7 @@ export const DropdownMenuComponent = props => {
     }
 
     return (
-        <Root className='d-inline-flex fd-column jc-flex-start ai-flex-end' {...rest}>
+        <Root {...rest}>
             <div
                 className='trigger-container d-flex jc-space-around ai-center'
                 onClick={onClickTriggerContainer}
@@ -63,6 +63,10 @@ export const DropdownMenuComponent = props => {
 }
 
 const Root = styled.div`
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
     & .trigger-container {
         cursor: pointer;
     }
@@ -73,14 +77,16 @@ const Root = styled.div`
         border-radius: var(--br-container);
         background-color: ${p => p.theme.bgcLight};
         width: 320px;
+        min-width: 320px;
         box-shadow: ${p => p.theme.boxShadowDark};
-        overflow: hidden;
+        overflow: visible;
         z-index: 10;
     }
 
     @media only screen and (max-width: 601px) {
         & .menu-container {
-            width: calc(100% - var(--ps-body)*2);
+            position: fixed;
+            min-width: calc(100% - var(--ps-body)*2);
             box-sizing: border-box;
             right: 0px;
             left: 0px;

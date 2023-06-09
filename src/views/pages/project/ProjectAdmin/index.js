@@ -425,6 +425,7 @@ const Container = styled.div`
     padding: 30px;
     // min-height: 1025px;
     box-sizing: border-box;
+    margin-bottom: 100px;
 
     &.mobile {
         padding: 20px;
