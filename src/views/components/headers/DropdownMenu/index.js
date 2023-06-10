@@ -10,6 +10,7 @@ export const DropdownMenuComponent = props => {
         triggerElement,
         menuElement,
         triggerHeight,
+        positionRelative=false,
 
         setMenuHidden,
 
@@ -36,7 +37,7 @@ export const DropdownMenuComponent = props => {
     }
 
     return (
-        <Root {...rest}>
+        <Root {...rest} style={positionRelative ? {position: 'relative', ...props.style} : props.style}>
             <div
                 className='trigger-container d-flex jc-space-around ai-center'
                 onClick={onClickTriggerContainer}
@@ -52,6 +53,7 @@ export const DropdownMenuComponent = props => {
                     className={`
                         menu-container animation-pop-in no-select
                         d-flex fd-column jc-flex-start ai-stretch
+                        ${positionRelative ? 'relative' : 'absolute'}
                     `}
                     ref={menuRef}
                 >
@@ -84,13 +86,16 @@ const Root = styled.div`
     }
 
     @media only screen and (max-width: 601px) {
-        & .menu-container {
-            position: fixed;
+        & .menu-container.absolute {
             min-width: calc(100% - var(--ps-body)*2);
             box-sizing: border-box;
             right: 0px;
             left: 0px;
             margin: 0px var(--ps-body);
+        }
+        & .menu-container.relative {
+            width: auto;
+            min-width: 0px;
         }
     }
 `

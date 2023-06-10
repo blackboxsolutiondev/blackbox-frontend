@@ -266,6 +266,8 @@ export const ProjectAdminComponent = props => {
                                 menuHidden={optionsMenuHidden}
                                 setMenuHidden={setOptionsMenuHidden}
                                 options={menuOptions}
+                                positionRelative={true}
+                                style={{zIndex: 0}}
                             />
                         </div>
                         <div className='item-row'>

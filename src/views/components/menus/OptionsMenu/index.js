@@ -9,6 +9,7 @@ export const OptionsMenuComponent = props => {
     const {
         menuHidden,
         options, // [{title, icon, onClick, ?isDanger}]
+        positionRelative=false,
 
         setMenuHidden,
 
@@ -35,11 +36,13 @@ export const OptionsMenuComponent = props => {
                             key={title}
                         >
                             <i className={icon} />
-                            <p>{title}</p>
+                            <p className='option-title'>{title}</p>
                         </div>
                     ))}
                 </MenuContainer>
             }
+            positionRelative={positionRelative}
+            {...rest}
         />
     )
 }
@@ -82,6 +85,10 @@ const MenuContainer = styled.div`
     & .menu-option-container.danger p,
     & .menu-option-container.danger i {
         color: ${p => p.theme.brightRed};
+    }
+
+    & .option-title {
+        white-space: nowrap;
     }
 `
 
