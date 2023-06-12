@@ -144,10 +144,10 @@ const Container = styled.div`
         grid-template-columns: 1fr;
     }
 
-    & .info-container, & .message-container {
+    & .info-container, .message-container {
         padding: 20px;
     }
-    &.semi-mobile .info-container, &.semi-mobile .message-container {
+    &.mobile .info-container, &.mobile .message-container {
         padding: 15px;
     }
     & .info-container {
