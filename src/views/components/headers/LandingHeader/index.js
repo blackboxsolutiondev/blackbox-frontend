@@ -26,6 +26,12 @@ const PageLinks = [
         icon: 'bi-list-task',
         id: 'terms'
     },
+    {
+        name: 'Contact Us',
+        url: '/contact-us',
+        icon: 'bi-mailbox',
+        id: 'contact-us',
+    }
 ]
 
 export const LandingHeaderComponent = props => {
@@ -154,7 +160,7 @@ const PageLink = styled(Link)`
     font-weight: 400;
     font-size: 15px;
     text-decoration: none;
-    margin-right: 25px;
+    margin-right: 20px;
 
     &:hover,
     &.active {

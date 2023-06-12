@@ -29,6 +29,7 @@ import { ProjectAdmin } from '../../views/pages/project/ProjectAdmin'
 import { ProjectStatus } from '../../views/pages/project/ProjectStatus'
 import { ProjectRevisions } from '../../views/pages/project/ProjectRevisions'
 import { AccessCode } from '../../views/pages/AccessCode'
+import { ContactUs } from '../../views/pages/ContactUs'
 
 const router = createBrowserRouter([
     {
@@ -59,6 +60,11 @@ const router = createBrowserRouter([
     {
       path: '/support/faq/:faqID',
       element: <IndividualFAQ />,
+      errorElement: <ErrorElement />
+    },
+    {
+      path: '/contact-us',
+      element: <ContactUs />,
       errorElement: <ErrorElement />
     },
     // dashboard
