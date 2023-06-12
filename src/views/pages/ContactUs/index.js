@@ -139,6 +139,7 @@ const Banner = styled.div`
 const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding-bottom: 100px;
 
     &.semi-mobile {
         grid-template-columns: 1fr;

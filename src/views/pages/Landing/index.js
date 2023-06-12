@@ -139,6 +139,10 @@ export const LandingComponent = props => {
         window.open(url, '_blank')
     }
 
+    const onClickContactUs = () => {
+        navigate('/contact-us')
+    }
+
     return (
         <PageContainer>
             <LandingHeader showButtons={true} />
@@ -196,7 +200,15 @@ export const LandingComponent = props => {
                     </div>
                 </div>
                 <div className='pricing-container' id='pricing-container'>
-                    <h1 className='title'>Pricing</h1>
+                    <div className='d-flex jc-space-between ai-center' style={{marginBottom: 30}}>
+                        <h1 className='title'>Pricing</h1>
+                        <Button
+                            title='Contact Us'
+                            priority={1}
+                            type='solid'
+                            onClick={onClickContactUs}
+                        />
+                    </div>
                     <div className='pricing-options-container'>
                         {Config.pricing.map(({title, price, icon, iconColor, features, id}) => (
                             <div className='pricing-option-container float-container' key={title}>
@@ -392,9 +404,6 @@ const Container = styled.div`
     }
     &.mobile .pricing-container {
         padding: 15px;
-    }
-    & .pricing-container .title {
-        margin-bottom: 30px;
     }
 
     & .pricing-options-container {
