@@ -8,6 +8,7 @@ export const mapProjectFormDataToProjectData = formData => ({
     logoImageURLs: formData.logoImageURLs,
     creatorPhoneNumber: formData.creatorPhoneNumber,
     domainProviderURL: formData.domainProviderURL,
+    projectDomainURL: formData.projectDomainURL,
     domainProviderUsername: formData.domainProviderUsername,
     domainProviderPassword: formData.domainProviderPassword,
 

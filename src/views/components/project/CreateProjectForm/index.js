@@ -99,6 +99,7 @@ export const CreateProjectFormComponent = props => {
             logoImageURLs: [],
             creatorPhoneNumber: '',
             email: props.isLoggedIn ? props.user.email : '',
+            projectDomainURL: '',
             domainProviderURL: '',
             domainProviderUsername: '',
             domainProviderPassword: '',
@@ -158,6 +159,7 @@ export const CreateProjectFormComponent = props => {
         logoImages: false,
         creatorPhoneNumber: false,
         email: false,
+        projectDomainURL: false,
         domainProviderURL: false,
         domainProviderUsername: false,
         domainProviderPassword: false,
@@ -225,6 +227,7 @@ export const CreateProjectFormComponent = props => {
     //         logoImageURLs: [],
     //         creatorPhoneNumber: '908-334-2404',
     //         email: props.isLoggedIn ? props.user.email : 'liammccluskey2@gmail.com',
+    //         projectDomainURL: 'test',
     //         domainProviderURL: 'test',
     //         domainProviderUsername: 'test',
     //         domainProviderPassword: 'test',
@@ -331,8 +334,8 @@ export const CreateProjectFormComponent = props => {
 
     useEffect(() => {
         if (!Object.keys(modified).length) return
-        
-        setGeneralModified(modified.creatorName || modified.logoImageURLs || isEditMode && formData.logoImages.length || modified.creatorPhoneNumber || modified.domainProviderURL || modified.domainProviderUsername || modified.domainProviderPassword)
+
+        setGeneralModified(modified.creatorName || modified.logoImageURLs || isEditMode && formData.logoImages.length || modified.creatorPhoneNumber || modified.projectDomainURL || modified.domainProviderURL || modified.domainProviderUsername || modified.domainProviderPassword)
         setLandingModified(modified.heroTitle || modified.heroMessage)
         setThemeModified(modified.themes || modified.defaultTheme || modified.selectedTintColors || modified.defaultTintColor || modified.customTintColor || modified.useCustomTintColor || modified.borderRadius || modified.buttonBorderRadius) 
 
@@ -428,6 +431,7 @@ export const CreateProjectFormComponent = props => {
                 const logoImagesCompleted = formData.logoImages.length > 0 || formData.logoImageURLs.length > 0
                 const phoneNumberCompleted = !!formData.creatorPhoneNumber
                 const emailCompleted = !!formData.email
+                const projectDomainURLCompleted = !!formData.projectDomainURL
                 const domainProviderURLCompleted = !!formData.domainProviderURL
                 const domainProviderUsernameCompleted = !!formData.domainProviderUsername
                 const domainProviderPasswordCompleted = !!formData.domainProviderPassword
@@ -438,11 +442,12 @@ export const CreateProjectFormComponent = props => {
                     logoImages: !logoImagesCompleted,
                     creatorPhoneNumber: !phoneNumberCompleted,
                     email: !emailCompleted,
+                    projectDomainURL: !projectDomainURLCompleted,
                     domainProviderURL: !domainProviderURLCompleted,
                     domainProviderUsername: !domainProviderUsernameCompleted,
                     domainProviderPassword: !domainProviderPasswordCompleted
                 }))
-                if (nameCompleted && projectNameCompleted && logoImagesCompleted && phoneNumberCompleted && emailCompleted && domainProviderURLCompleted && domainProviderUsernameCompleted && domainProviderPasswordCompleted) {
+                if (nameCompleted && projectNameCompleted && logoImagesCompleted && phoneNumberCompleted && emailCompleted && projectDomainURLCompleted && domainProviderURLCompleted && domainProviderUsernameCompleted && domainProviderPasswordCompleted) {
                     setGeneralCompleted(true)
                     navigateToStep(navigateToStepID, {general: true})
                 } else {
@@ -943,6 +948,7 @@ export const CreateProjectFormComponent = props => {
     const onClickEditField = fieldName => {
         switch (fieldName) {
             case 'name':
+            case 'projectDomainURL':
             case 'domainProviderURL':
             case 'domainProviderUsername':
             case 'domainProviderPassword':
@@ -1138,6 +1144,18 @@ export const CreateProjectFormComponent = props => {
                             hasError={errors.email}
                             modified={isEditMode && modified.email}
                             locked={isEditMode || props.isLoggedIn}
+                        />
+                        <InputWithMessage
+                            label='Project Domain URL'
+                            inputType='text'
+                            text={formData.projectDomainURL}
+                            onChangeText={onChangeFormValue}
+                            fieldName='projectDomainURL'
+                            placeholder='https://'
+                            message='This is the domain you want this site to exist on. If you do not have one we recommend Google Domains.'
+                            hasError={errors.projectDomainURL}
+                            modified={isEditMode && modified.projectDomainURL}
+                            locked={isEditMode && (props.project ? props.project.editingLocked : true)}
                         />
                         <InputWithMessage
                             label='Domain Provider URL'
@@ -1600,6 +1618,17 @@ export const CreateProjectFormComponent = props => {
                                     icon='bi-pencil'
                                     size='s'
                                     onClick={() => onClickEditField('email')}
+                                />
+                            </div>
+                            <div className='label-with-message-container'>
+                                <div className='label-container'>
+                                    <label>Project Domain URL</label>
+                                    <p className='review-item'>{formData.projectDomainURL}</p>
+                                </div>
+                                <IconButton
+                                    icon='bi-pencil'
+                                    size='s'
+                                    onClick={() => onClickEditField('projectDomainURL')}
                                 />
                             </div>
                             <div className='label-with-message-container'>

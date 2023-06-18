@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { bindActionCreators } from '@reduxjs/toolkit'
 import { connect } from 'react-redux'
 
-import * as Constants from '../Login/constants'
 import {auth, getFirebaseErrorMessage} from '../../../networking'
 import { addMessage } from '../../../redux/communication'
 import { setThemeColor, setTintColor } from '../../../redux/theme'
