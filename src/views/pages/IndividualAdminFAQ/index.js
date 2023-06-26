@@ -144,6 +144,7 @@ export const IndividualAdminFAQComponent = props => {
                                         menuHidden={editingOptionsMenuHidden}
                                         setMenuHidden={setEditingOptionsMenuHidden}
                                         options={menuOptions}
+                                        positionRelative={true}
                                     />
                                 </div>
                                 <div className='edit-label-container'>
