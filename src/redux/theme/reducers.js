@@ -15,7 +15,9 @@ const ThemeState = {
 export const themeReducer = (state = ThemeState, action) => {
     switch (action.type) {
         case Types.SET_THEME_COLOR:
-            document.documentElement.style.setProperty('--bgc', Themes[action.value].bgc)
+            const root = document.documentElement
+            root.style.setProperty('--bgc', Themes[action.value].bgc)
+            root.style.setProperty('--bgc-nav', Themes[action.value].bgcNav)
             return {
                 ...state,
                 themeColor: action.value

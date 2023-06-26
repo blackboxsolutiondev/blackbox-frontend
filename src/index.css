@@ -62,6 +62,7 @@ th {
   --ps-subheader: 12%;
   --ps-body: 12%;
   --bgc: white;
+  --bgc-nav: white;
 
   /* constants */
   --h-mainheader: 70px;
