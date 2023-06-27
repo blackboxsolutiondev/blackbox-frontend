@@ -13,7 +13,7 @@ import { Button } from '../../components/common/Button'
 
 const Config = {
     heroTitle: 'Custom web apps done right',
-    heroMessage: "We'll convert your web app idea into a professional webapp. Just fill out our form and tell us about your webapp to get started.",
+    heroMessage: "We'll convert your web app idea into a professional web app. Just fill out our form and tell us about your web app to get started.",
     heroImageURL: 'https://firebasestorage.googleapis.com/v0/b/blackbox-solution.appspot.com/o/landing%2Fadmin_console_bug_reports.png?alt=media&token=78fb5781-ab6f-4f4c-b872-fb35b225a3b1',
     whyChooseUs: [
         {
