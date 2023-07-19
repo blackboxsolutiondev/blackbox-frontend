@@ -257,7 +257,7 @@ export const ProjectAdminComponent = props => {
                 activeLinkID='admin'
                 projectID={projectID}
             />
-            <BodyContainer>
+            <BodyContainer style={{paddingTop: 0, paddingBottom: 0, overflow: 'scroll'}}>
                 {!props.loadingProject && props.project ?
                     <Container className={`float-container ${props.isMobile && 'mobile'}`} style={{overflow: 'visible'}}>
                         <div className='header-container'>
@@ -427,7 +427,7 @@ const Container = styled.div`
     padding: 30px;
     // min-height: 1025px;
     box-sizing: border-box;
-    margin-bottom: 100px;
+    margin: 40px 0px;
 
     &.mobile {
         padding: 20px;
