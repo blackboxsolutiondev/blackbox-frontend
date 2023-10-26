@@ -170,8 +170,8 @@ export const patchUserPhoto = (
         const storageRef = ref(storage, `/users/${_id}/photo`)
         let photoURL = null
         try {
-            photoURL = await getDownloadURL(storageRef)
             await uploadBytes(storageRef, photoFile)
+            photoURL = await getDownloadURL(storageRef)
             await updateProfile(firebaseUser, {photoURL})
         } catch (error) {
             const errorMessage = getFirebaseErrorMessage(error)
